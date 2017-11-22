@@ -1,0 +1,10 @@
+strategies:
+unary: add negativity to binary nodes and literals (not identifier nodes). division is the only one that will make use of that when it does it operation. binary nodes store it as a bool, literals store it in the value itself.
+
+working on now:
+-(1*1) fails
+-(4/2) fails 
+b/c the makeNegative function is not being called
+
+up next:
+ check alltest.py to see if broke parser ability

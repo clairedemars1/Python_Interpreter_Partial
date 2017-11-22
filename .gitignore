@@ -1,0 +1,6 @@
+*.o
+run
+*.tab.*
+*.yy.* 
+lex.yy.c
+*.out
