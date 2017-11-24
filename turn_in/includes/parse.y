@@ -703,7 +703,9 @@ star_COMMA_expr // Used in: exprlist, star_COMMA_expr
 	;
 testlist // Used in: expr_stmt, pick_yield_expr_testlist, return_stmt, for_stmt, opt_testlist, yield_expr
 	: test star_COMMA_test COMMA
+
 	| test star_COMMA_test
+	{ cout << "testlist" << endl;}
 	;
 dictorsetmaker // Used in: opt_dictorsetmaker
 	: test COLON test pick_for_test_test

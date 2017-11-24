@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <iomanip>
+#include <string>
 #include "ast.h"
 #include "symbolTable.h"
 
@@ -11,7 +12,6 @@ const Literal* IdentNode::eval() const {
   const Literal* val = SymbolTable::getInstance().getValue(ident);
   return val;
 }
-
 
 AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) : 
   BinaryNode(left, right) { 
