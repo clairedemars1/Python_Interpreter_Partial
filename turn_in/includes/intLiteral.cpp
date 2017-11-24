@@ -61,7 +61,6 @@
     if ( val == 0 ) throw std::string("Zero Division Error");
     
     // match python's floor division for ints (eg -1/2 = -1 not 0)
-	// so do -1.0/2.0 = -0.5 then floor that
     Literal* node = new IntLiteral(floor((float) lhs / (float) val));
     
     PoolOfNodes::getInstance().add(node);
