@@ -40,13 +40,14 @@
 	float float_val;
 }
 %type<c_string> NAME
+
 %type<node_p> atom 
 %type<node_p> arith_expr power factor term opt_test 
 %type<node_p> opt_yield_test pick_yield_expr_testlist_comp testlist_comp test
 %type< node_p> pick_yield_expr_testlist star_EQUAL expr_stmt testlist 
 %type<node_p> star_COMMA_test yield_expr or_test lambdef plus_STRING
 
-%type<int_val>INT pick_PLUS_MINUS pick_multop pick_unop augassign and_test
+%type<int_val>INT pick_PLUS_MINUS pick_multop pick_unop augassign and_test star_trailer
 %type<float_val> FLOAT
 
 
@@ -588,17 +589,24 @@ power // Used in: factor
 	: atom star_trailer DOUBLESTAR factor
 	{ 	$$ = new PowBinaryNode($1, $4);
 		pool.add($$);
-		//cout << "star_trailer doublestar" << endl;
 	}
 	| atom star_trailer
-	{	$$ = $1; 	
-		//cout << "just a number ";
+	{	
+		if($2){ // function calls
+			$$ = new CallNode($1);
+			pool.add($$);
+			$$->eval();
+		} else { // just an atom (number, name, etc.)
+			$$ = $1; 	
+		}
 	}
 	;
-star_trailer // Used in: power, star_trailer
+star_trailer // Used in: power, star_trailer // eg (3, 2) in foo(3, 2)
 	: star_trailer trailer
+	{ $$ = 1; }
 	| %empty
-	;
+	{ $$ = 0; }
+	; 
 atom // Used in: power
 	: LPAR opt_yield_test RPAR
 	{ $$ = $2; }
@@ -609,7 +617,8 @@ atom // Used in: power
 	| BACKQUOTE testlist1 BACKQUOTE
 	{ $$ = NULL; }
 	| NAME
-	{ 	$$ = new IdentNode($1);
+	{ 	
+		$$ = new IdentNode($1);
 		pool.add($$);
 		free($1); 
 	}
@@ -663,7 +672,9 @@ lambdef // Used in: test
 	;
 trailer // Used in: star_trailer
 	: LPAR opt_arglist RPAR
-	{ cout << "lpar for trailer" << endl; }
+	{ 
+		// "lpar for trailer" 
+	}
 	| LSQB subscriptlist RSQB
 	| DOT NAME
 	{ free($2); }
@@ -695,7 +706,9 @@ sliceop // Used in: opt_sliceop
 	;
 exprlist // Used in: del_stmt, for_stmt, list_for, comp_for
 	: expr star_COMMA_expr COMMA
+	{ cout << "exprlist" << endl; }
 	| expr star_COMMA_expr
+	{ cout << "exprlist" << endl; }
 	;
 star_COMMA_expr // Used in: exprlist, star_COMMA_expr
 	: star_COMMA_expr COMMA expr

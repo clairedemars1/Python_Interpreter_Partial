@@ -6,8 +6,27 @@
 #include <iomanip>
 #include "ast.h"
 #include "symbolTable.h"
+using std::endl;
+using std::cout;
+
+const Literal* FuncNode::eval() const {
+	for(auto statement: statements){
+		statement->eval();
+	}
+	return NULL;
+}
+
+const Literal* CallNode::eval() const {
+	
+	return NULL;
+}
+
+void FuncNode::addStatement(const Node* node){
+	statements.push_back(node);
+}
 
 const Literal* IdentNode::eval() const { 
+  SymbolTable::getInstance().display();
   const Literal* val = SymbolTable::getInstance().getValue(ident);
   return val;
 }
@@ -15,9 +34,7 @@ const Literal* IdentNode::eval() const {
 
 AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) : 
   BinaryNode(left, right) { 
-  const Literal* res = right->eval();
-  const std::string n = static_cast<IdentNode*>(left)->getIdent();
-  SymbolTable::getInstance().setValue(n, res);
+  // std::cout << "made BinaryNode" << std::endl;
 }
 
 
@@ -26,8 +43,9 @@ const Literal* AsgBinaryNode::eval() const {
     throw "error";
   }
   const Literal* res = right->eval();
-
+  // cout << "EVALED RIGHT" << endl;
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
+  // cout << "evaled left" << endl;
   SymbolTable::getInstance().setValue(n, res);
   return res;
 }

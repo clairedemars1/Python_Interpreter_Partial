@@ -2,6 +2,8 @@
 #include <algorithm>
 #include "symbolTable.h"
 #include "literal.h"
+using std::endl;
+using std::cout;
 
 SymbolTable& SymbolTable::getInstance() {
   static SymbolTable instance;
@@ -21,3 +23,8 @@ void SymbolTable::setValue(const std::string& name, const Literal* val) {
   table[name] = val;
 }
 
+void SymbolTable::display(){
+	for (auto i: table){
+		cout << i.first << " " << i.second << endl;
+	}
+}

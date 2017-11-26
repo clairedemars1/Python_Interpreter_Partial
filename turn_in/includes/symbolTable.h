@@ -13,6 +13,7 @@ public:
   static   SymbolTable& getInstance();
   void     setValue(const std::string& name, const Literal* val);
   const Literal* getValue(const std::string& name) const;
+  void		display();
 private:
   std::map<std::string, const Literal*> table;
   SymbolTable() : table() {}
