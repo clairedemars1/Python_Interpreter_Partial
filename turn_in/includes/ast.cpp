@@ -9,20 +9,24 @@
 using std::endl;
 using std::cout;
 
-const Literal* FuncNode::eval() const {
-	for(auto statement: statements){
-		statement->eval();
-	}
-	return NULL;
-}
-
-const Literal* CallNode::eval() const {
-	
-	return NULL;
-}
 
 void FuncNode::addStatement(const Node* node){
+	suite->addStatement(node);
+}
+
+const Literal* FuncNode::eval() const {
+	return nullptr;
+}
+
+void SuiteNode::addStatement(const Node* node){
 	statements.push_back(node);
+}
+
+const Literal* SuiteNode::eval() const {
+	for(auto s: statements){
+		if (s) s->eval();
+	}
+	return nullptr;
 }
 
 const Literal* IdentNode::eval() const { 
@@ -31,10 +35,13 @@ const Literal* IdentNode::eval() const {
   return val;
 }
 
+const Literal* CallNode::eval() const {
+	return nullptr;
+}
 
 AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) : 
-  BinaryNode(left, right) { 
-  // std::cout << "made BinaryNode" << std::endl;
+  BinaryNode(left, right) {
+ 
 }
 
 
@@ -43,9 +50,7 @@ const Literal* AsgBinaryNode::eval() const {
     throw "error";
   }
   const Literal* res = right->eval();
-  // cout << "EVALED RIGHT" << endl;
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
-  // cout << "evaled left" << endl;
   SymbolTable::getInstance().setValue(n, res);
   return res;
 }

@@ -33,6 +33,7 @@
 
 #include "stdbool.h"
 class Node;
+class SuiteNode;
 #include "parse.tab.h"
 
 using std::endl;

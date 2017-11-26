@@ -16,3 +16,4 @@ protected:
   virtual bool isNegative() const { return false; }
 };
 
+

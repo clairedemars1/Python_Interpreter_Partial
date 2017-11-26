@@ -12,20 +12,6 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
-// suite of code statements for a function
-// class SuiteNode: public Node {
-// public:
-	// SuiteNode(): Node() {}
-	// ~SuiteNode() {}
-	// SuiteNode(const SuiteNode&)=delete;
-	// SuiteNode& operator=(const SuiteNode&)=delete;
-	// addStatement(const Node*);
-// private:
-	// std::vector<const Node*> statements;
-// }
-
-
-
 class IdentNode : public Node {
 public:
   IdentNode(const std::string& id) : Node(), ident(id) {
@@ -38,22 +24,24 @@ private:
   const std::string ident;
 };
 
-class CallNode: public Node {
+// suite of code statements for a function
+class SuiteNode: public Node {
 public:
-	CallNode(const Node* _ident): Node(), ident(_ident){}
-	~CallNode(){}
-	CallNode(const CallNode&)=delete;
-	CallNode& operator=(const CallNode&)=delete;
-	const Literal* eval() const;
+	SuiteNode(): Node(), statements() {}
+	~SuiteNode() {}
+	SuiteNode(const SuiteNode&)=delete;
+	SuiteNode& operator=(const SuiteNode&)=delete;
+	virtual const Literal* eval() const;
+	void addStatement(const Node*);
 private:
-	const Node* ident;
+	std::vector<const Node*> statements;
 };
 
 class FuncNode: public Node {
 public:
-	FuncNode(const IdentNode* _ident): 
+	FuncNode(const IdentNode* _ident, SuiteNode* _suite): 
 		ident(_ident),
-		statements()
+		suite(_suite)
 	{
 		PoolOfNodes::getInstance().add(ident);
 	}
@@ -61,11 +49,22 @@ public:
 	FuncNode(const FuncNode&);
 	FuncNode& operator=(const FuncNode&);
 	void addStatement(const Node*);
-	const Literal* eval() const;
+	virtual const Literal* eval() const;
 private:
 	const IdentNode* ident;
-	std::vector<const Node*> statements;	
+	SuiteNode* suite;	
 }; 
+
+class CallNode: public Node {
+public:
+	CallNode(const Node* _ident): Node(), ident(_ident){}
+	~CallNode(){}
+	CallNode(const CallNode&)=delete;
+	CallNode& operator=(const CallNode&)=delete;
+	virtual const Literal* eval() const;
+private:
+	const Node* ident;
+};
 
 class BinaryNode : public Node {
 public:
