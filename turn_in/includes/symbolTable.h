@@ -12,6 +12,7 @@ class Node;
 class SymbolTable {
 public:
   //~ static   SymbolTable& getInstance();
+  SymbolTable() : vars(), funcs() {}
   
   void setVar(const std::string& name, const Literal* var);
   void setFunc(const std::string&name, const Node* func);
@@ -23,7 +24,6 @@ public:
 private:
   std::map<std::string, const Literal*> vars;
   std::map<std::string, const Node*> funcs;
-  SymbolTable() : vars(), funcs() {}
 };
 
 #endif

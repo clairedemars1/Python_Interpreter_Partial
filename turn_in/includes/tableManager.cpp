@@ -18,3 +18,11 @@ void TableManager::setVar(const std::string& name, const Literal* var) {
 void TableManager::setFunc(const std::string& name, const Node* func) { 
 	tables[currentScope].setFunc(name, func);
 }
+
+void TableManager::pushScope(){
+	tables.push_back( SymbolTable() );
+}
+
+void TableManager::popScope(){
+	tables.pop_back();
+}
