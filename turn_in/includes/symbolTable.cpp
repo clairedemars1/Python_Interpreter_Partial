@@ -6,10 +6,10 @@
 using std::endl;
 using std::cout;
 
-SymbolTable& SymbolTable::getInstance() {
-  static SymbolTable instance;
-  return instance;
-}
+//~ SymbolTable& SymbolTable::getInstance() {
+  //~ static SymbolTable instance;
+  //~ return instance;
+//~ }
 
 const Literal* SymbolTable::getVar(const std::string& name) const {
   std::map<std::string, const Literal*>::const_iterator it = 

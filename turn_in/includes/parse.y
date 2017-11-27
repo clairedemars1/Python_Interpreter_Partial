@@ -5,6 +5,7 @@
 	#include <cstring>
 	
 	#include "includes/ast.h"
+	#include "includes/symbolTable.h"
 	class Node;
 	
 	int yylex (void);
@@ -93,9 +94,9 @@ funcdef // Used in: decorated, compound_stmt
 	{ 	
 		IdentNode* name = new IdentNode($2);
 		pool.add(name);
-		$$ = new FuncNode(name, $5);
-		pool.add($$);
 		free($2);
+		$$ = new FuncNode(name, $5);
+		pool.add($$);		
 	}
 	;
 parameters // Used in: funcdef

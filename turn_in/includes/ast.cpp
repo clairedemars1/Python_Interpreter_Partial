@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include "ast.h"
-#include "symbolTable.h"
+#include "tableManager.h"
 using std::endl;
 using std::cout;
 
@@ -30,8 +30,7 @@ const Literal* SuiteNode::eval() const {
 }
 
 const Literal* IdentNode::eval() const { 
-  SymbolTable::getInstance().display();
-  const Literal* val = SymbolTable::getInstance().getVar(ident);
+  const Literal* val = TableManager::getInstance().getVar(ident);
   return val;
 }
 
@@ -51,7 +50,7 @@ const Literal* AsgBinaryNode::eval() const {
   }
   const Literal* res = right->eval();
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
-  SymbolTable::getInstance().setVar(n, res);
+  TableManager::getInstance().setVar(n, res);
   return res;
 }
 
