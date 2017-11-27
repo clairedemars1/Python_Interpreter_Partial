@@ -7,16 +7,22 @@
 #include <algorithm>
 
 class Literal;
+class Node;
 
 class SymbolTable {
 public:
   static   SymbolTable& getInstance();
-  void     setValue(const std::string& name, const Literal* val);
-  const Literal* getValue(const std::string& name) const;
+  //~ void     setValue(const std::string& name, const Literal* val);
+  void setVar(const std::string& name, const Literal* var);
+  void setFunc(const std::string&name, const Node* func);
+  //~ const Literal* getValue(const std::string& name) const;
+  const Literal* getVar(const std::string& name) const;
+  const Node* getFunc(const std::string& name) const;
   void		display();
 private:
-  std::map<std::string, const Literal*> table;
-  SymbolTable() : table() {}
+  std::map<std::string, const Literal*> vars;
+  std::map<std::string, const Node*> funcs;
+  SymbolTable() : vars(), funcs() {}
 };
 
 #endif

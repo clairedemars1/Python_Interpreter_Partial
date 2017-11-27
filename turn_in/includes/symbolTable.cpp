@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "symbolTable.h"
 #include "literal.h"
+#include "node.h"
 using std::endl;
 using std::cout;
 
@@ -10,21 +11,35 @@ SymbolTable& SymbolTable::getInstance() {
   return instance;
 }
 
-const Literal* SymbolTable::getValue(const std::string& name) const {
+const Literal* SymbolTable::getVar(const std::string& name) const {
   std::map<std::string, const Literal*>::const_iterator it = 
-    table.find(name);
-  if ( it == table.end() ) throw name+std::string(" not found");
+    vars.find(name);
+  if ( it == vars.end() ) throw name+std::string(" not found");
+  return it->second;
+}
+const Node* SymbolTable::getFunc(const std::string& name) const {
+  std::map<std::string, const Node*>::const_iterator it = 
+    funcs.find(name);
+  if ( it == funcs.end() ) throw name+std::string(" not found");
   return it->second;
 }
 
-void SymbolTable::setValue(const std::string& name, const Literal* val) { 
+void SymbolTable::setVar(const std::string& name, const Literal* var) { 
   //~ std::pair<std::string, const Literal*> temp(name, val);
   //~ table.insert(temp);
-  table[name] = val;
+  vars[name] = var;
+}
+void SymbolTable::setFunc(const std::string& name, const Node* func) { 
+  funcs[name] = func;
 }
 
 void SymbolTable::display(){
-	for (auto i: table){
+	cout << "vars: " << endl;
+	for (auto i: vars){
+		cout << i.first << " " << i.second << endl;
+	}
+	cout << "funcs: " << endl;
+	for (auto i: funcs){
 		cout << i.first << " " << i.second << endl;
 	}
 }

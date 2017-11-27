@@ -31,7 +31,7 @@ const Literal* SuiteNode::eval() const {
 
 const Literal* IdentNode::eval() const { 
   SymbolTable::getInstance().display();
-  const Literal* val = SymbolTable::getInstance().getValue(ident);
+  const Literal* val = SymbolTable::getInstance().getVar(ident);
   return val;
 }
 
@@ -51,7 +51,7 @@ const Literal* AsgBinaryNode::eval() const {
   }
   const Literal* res = right->eval();
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
-  SymbolTable::getInstance().setValue(n, res);
+  SymbolTable::getInstance().setVar(n, res);
   return res;
 }
 
