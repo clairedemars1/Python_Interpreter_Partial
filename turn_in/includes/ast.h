@@ -20,6 +20,7 @@ public:
 	PrintNode(const PrintNode&)=delete;
 	PrintNode& operator=(const PrintNode&)=delete;
 	virtual const Literal* eval() const;
+	virtual void display() const;
 private:
 	const Node* printMe;
 
@@ -31,6 +32,7 @@ public:
   virtual ~IdentNode() {}
   const std::string getIdent() const { return ident; }
   virtual const Literal* eval() const;
+  virtual void display() const;
 
 private:
   const std::string ident;
@@ -45,6 +47,8 @@ public:
 	SuiteNode& operator=(const SuiteNode&)=delete;
 	virtual const Literal* eval() const;
 	void addStatement(const Node*);
+	virtual void display() const;
+
 private:
 	std::vector<const Node*> statements;
 };
@@ -60,6 +64,8 @@ public:
 	FuncNode& operator=(const FuncNode&);
 	void addStatement(const Node*);
 	virtual const Literal* eval() const;
+	virtual void display() const;
+
 private:
 	const IdentNode* ident;
 	const SuiteNode* suite;	
@@ -72,6 +78,7 @@ public:
 	CallNode(const CallNode&)=delete;
 	CallNode& operator=(const CallNode&)=delete;
 	virtual const Literal* eval() const;
+	virtual void display() const;
 private:
 	const IdentNode* ident;
 };
@@ -90,6 +97,7 @@ public:
   virtual bool isNegative() const {
 	return is_neg;
   }
+  virtual void display(){ cout << typeid(*this).name() << endl; }
 protected:
   Node *left;
   Node *right;

@@ -137,3 +137,5 @@
 		cout << val << endl;
 	}
   }
+
+void FloatLiteral::display() const { cout << "FloatLiteral" << val << endl; }

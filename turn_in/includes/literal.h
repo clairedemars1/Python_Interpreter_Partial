@@ -80,6 +80,7 @@ public:
 	  val *= -1;
 	  //~ cout << "make neg" << endl;
   }
+  virtual void display() const;
 private:
   float val;
 };
@@ -120,6 +121,8 @@ public:
   void changeSign() { 
 	  val *= -1;
   }
+  virtual void display() const;
+
 private:
   int val;
 };

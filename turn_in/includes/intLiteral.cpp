@@ -131,3 +131,5 @@
   void IntLiteral::print() const { 
     std::cout << val << std::endl; 
   }
+  
+void IntLiteral::display() const { cout << "IntLiteral" << val << endl; }

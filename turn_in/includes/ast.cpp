@@ -16,10 +16,20 @@ const Literal* PrintNode::eval() const {
 	if (temp) temp->print();
 	return nullptr;
 }
+void PrintNode::display() const { 
+	cout << "PrintNode" << endl;
+	if (printMe) printMe->display();
+}
 
 const Literal* FuncNode::eval() const {
 	suite->eval();
 	return nullptr;
+}
+
+void FuncNode::display() const { 
+	cout << "FuncNode" << endl;
+	ident->display();
+	suite->display();
 }
 
 void SuiteNode::addStatement(const Node* node){
@@ -33,18 +43,32 @@ const Literal* SuiteNode::eval() const {
 	return nullptr;
 }
 
+void SuiteNode::display() const {
+	for(auto s: statements){
+		if (s) s->display();
+	}
+}
+
 const Literal* IdentNode::eval() const { 
   const Literal* val = TableManager::getInstance().getVar(ident);
   return val;
 }
 
+void IdentNode::display() const { 
+	cout << "IdentNode: " << getIdent() << endl;
+}
+
 const Literal* CallNode::eval() const {
 	// get implementation from symbol table, call it
-	TableManager::getInstance().display();
 	string ident_str = ident->getIdent();
 	const FuncNode* function_impl = static_cast<const FuncNode*>( TableManager::getInstance().getFunc(ident_str) );
 	function_impl->eval();
 	return nullptr;
+}
+
+void CallNode::display() const {
+	cout << "CallNode" << endl;
+	ident->display();
 }
 
 AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) : 
@@ -53,7 +77,7 @@ AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) :
 
 const Literal* AsgBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "asg binary node error";
   }
   const Literal* res = right->eval();
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
@@ -63,7 +87,7 @@ const Literal* AsgBinaryNode::eval() const {
 
 const Literal* AddBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "add binary node error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -75,7 +99,7 @@ const Literal* AddBinaryNode::eval() const {
 
 const Literal* SubBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "sub binary node error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -86,7 +110,7 @@ const Literal* SubBinaryNode::eval() const {
 
 const Literal* MulBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "mul error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -97,7 +121,7 @@ const Literal* MulBinaryNode::eval() const {
 
 const Literal* DivBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "div error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -108,7 +132,7 @@ const Literal* DivBinaryNode::eval() const {
 
 const Literal* DoubleSlashBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "double slash error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -119,7 +143,7 @@ const Literal* DoubleSlashBinaryNode::eval() const {
 
 const Literal* ModBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "mod error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
@@ -130,7 +154,7 @@ const Literal* ModBinaryNode::eval() const {
 
 const Literal* PowBinaryNode::eval() const { 
   if (!left || !right) {
-    throw "error";
+    throw "pow error";
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();

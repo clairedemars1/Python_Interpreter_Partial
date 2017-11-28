@@ -76,6 +76,11 @@ file_input // Used in: start
 pick_NEWLINE_stmt // Used in: star_NEWLINE_stmt
 	: NEWLINE
 	| stmt
+	{ 
+		if ($1){
+			//$1->display();
+		}
+	}
 	;
 star_NEWLINE_stmt // Used in: file_input, star_NEWLINE_stmt
 	: star_NEWLINE_stmt pick_NEWLINE_stmt
@@ -211,10 +216,12 @@ expr_stmt // Used in: small_stmt
 	} 
 	| testlist star_EQUAL
 	{ 
-		$$ = new AsgBinaryNode($1, $2);
-		pool.add($$);
-		if (scopeLevel == 0){
-			$$->eval();
+		if ($2){
+			$$ = new AsgBinaryNode($1, $2);
+			pool.add($$);
+			if (scopeLevel == 0){
+				$$->eval();
+			}
 		}
 	}
 	;
