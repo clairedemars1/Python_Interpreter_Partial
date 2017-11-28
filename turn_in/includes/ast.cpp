@@ -10,9 +10,9 @@ using std::endl;
 using std::cout;
 
 
-void FuncNode::addStatement(const Node* node){
-	suite->addStatement(node);
-}
+//~ void FuncNode::addStatement(const Node* node){
+	//~ suite->addStatement(node);
+//~ }
 
 const Literal* FuncNode::eval() const {
 	return nullptr;

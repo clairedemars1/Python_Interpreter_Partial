@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include "literal.h"
+#include "tableManager.h"
 
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
@@ -39,20 +40,18 @@ private:
 
 class FuncNode: public Node {
 public:
-	FuncNode(const IdentNode* _ident, SuiteNode* _suite): 
-		ident(_ident),
-		suite(_suite)
+	FuncNode(const std::string& name, SuiteNode* suite)
 	{
-		PoolOfNodes::getInstance().add(ident);
+		TableManager::getInstance().setFunc(name, suite);
 	}
 	~FuncNode(){}
 	FuncNode(const FuncNode&);
 	FuncNode& operator=(const FuncNode&);
 	void addStatement(const Node*);
 	virtual const Literal* eval() const;
-private:
-	const IdentNode* ident;
-	SuiteNode* suite;	
+//~ private:
+	// std::string& name; // don't need to store this, it's in the symbol table
+	// SuiteNode* suite;	
 }; 
 
 class CallNode: public Node {
