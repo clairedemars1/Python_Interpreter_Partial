@@ -12,7 +12,6 @@ class Node;
 
 class SymbolTable {
 public:
-  //~ static   SymbolTable& getInstance();
   SymbolTable() : vars(), funcs() {}
   
   void setVar(const std::string& name, const Literal* var);

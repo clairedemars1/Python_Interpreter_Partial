@@ -20,7 +20,7 @@
 	
 	int scopeLevel = 0; // 0 is global, 1 is in one function, 2 is in a nested function
 	
-	/*
+	/* Implementation Notes:
 	- Print statements, assignments (of vars or functions), and function calls are their own "little trees"
 	When they are in the global scope, they are evaluated immediately after being written
 	- Function definitions in the global scope are stored in the global symbol table (in the table manager), any nested ones are stored as subtrees within them
@@ -58,14 +58,12 @@
 %type<node_p> opt_yield_test pick_yield_expr_testlist_comp testlist_comp test
 %type< node_p> pick_yield_expr_testlist star_EQUAL expr_stmt testlist 
 %type<node_p> star_COMMA_test yield_expr or_test lambdef plus_STRING
-%type<node_p> funcdef
+%type<node_p> funcdef print_stmt
 
 %type<suite_node_p> plus_stmt stmt suite
 
 %type<int_val>INT pick_PLUS_MINUS pick_multop pick_unop augassign and_test star_trailer
 %type<float_val> FLOAT
-
-
 
 %%
 
@@ -267,9 +265,12 @@ augassign // Used in: expr_stmt
 	;
 print_stmt // Used in: small_stmt
 	: PRINT opt_test
-	{ 
+	{ 	
+		PrintNode* printNode = new PrintNode($2);
 		if (scopeLevel == 0){
-			$2->eval()->print();
+			printNode->eval();
+		} else {
+			$$ = printNode;
 		}
 	}
 	| PRINT RIGHTSHIFT test opt_test_2

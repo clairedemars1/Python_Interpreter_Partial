@@ -13,6 +13,17 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
+class PrintNode: public Node {
+public:
+	PrintNode(const Node* _printMe): Node(), printMe(_printMe){ }
+	~PrintNode(){}
+	PrintNode(const PrintNode&)=delete;
+	PrintNode& operator=(const PrintNode&)=delete;
+	virtual const Literal* eval() const;
+private:
+	const Node* printMe;
+
+};
 class IdentNode : public Node {
 public:
   IdentNode(const std::string& id) : Node(), ident(id) {
@@ -20,12 +31,7 @@ public:
   virtual ~IdentNode() {}
   const std::string getIdent() const { return ident; }
   virtual const Literal* eval() const;
-  //~ bool operator==(const IdentNode* rhs) const {
-	  //~ return this->ident == rhs->ident;
-  //~ }
-  //~ bool operator==(const IdentNode& rhs) const {
-	  //~ return this->ident == rhs.ident;
-  //~ }
+
 private:
   const std::string ident;
 };
@@ -48,9 +54,7 @@ public:
 	FuncNode(const IdentNode* _ident, SuiteNode* _suite):
 		ident(_ident)
 		,suite(_suite)
-	{
-		//~ TableManager::getInstance().setFunc(name, suite);
-	}
+	{	}
 	~FuncNode(){}
 	FuncNode(const FuncNode&);
 	FuncNode& operator=(const FuncNode&);

@@ -1,10 +1,9 @@
 
 
 def f():
-	x=3
-	print(x)
+	print(3)
 	
-y=1
-print(y)
+
+f()
 
 

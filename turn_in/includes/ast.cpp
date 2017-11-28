@@ -11,11 +11,14 @@ using std::endl;
 using std::cout;
 using std::string;
 
-//~ void FuncNode::addStatement(const Node* node){
-	//~ suite->addStatement(node);
-//~ }
+const Literal* PrintNode::eval() const {
+	const Literal* temp = printMe->eval();
+	if (temp) temp->print();
+	return nullptr;
+}
 
 const Literal* FuncNode::eval() const {
+	suite->eval();
 	return nullptr;
 }
 
@@ -37,17 +40,16 @@ const Literal* IdentNode::eval() const {
 
 const Literal* CallNode::eval() const {
 	// get implementation from symbol table, call it
+	TableManager::getInstance().display();
 	string ident_str = ident->getIdent();
-	const Node* function_impl = TableManager::getInstance().getFunc(ident_str);
+	const FuncNode* function_impl = static_cast<const FuncNode*>( TableManager::getInstance().getFunc(ident_str) );
 	function_impl->eval();
 	return nullptr;
 }
 
 AsgBinaryNode::AsgBinaryNode(Node* left, Node* right) : 
   BinaryNode(left, right) {
- 
 }
-
 
 const Literal* AsgBinaryNode::eval() const { 
   if (!left || !right) {
