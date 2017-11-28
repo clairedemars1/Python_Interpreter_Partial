@@ -126,13 +126,17 @@ funcdef // Used in: decorated, compound_stmt
 	{ 	
 		IdentNode* name = new IdentNode($2);
 		pool.add(name);
-		FuncNode* func = new FuncNode(name, $5);
-		pool.add(func);	
+		
+		FuncNode* func = new FuncNode($5); // later: pass parameters too
+		pool.add(func);
+		
+		FuncAsgNode* asg = new FuncAsgNode(name, func);
+		pool.add(asg);
 			
 		if (scopeLevel == 0){
-			TableManager::getInstance().setFunc($2, func);
+			asg->eval();
 		} else {
-			$$ = func;
+			$$ = asg;
 		}
 		free($2);
 	}

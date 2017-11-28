@@ -53,23 +53,42 @@ private:
 	std::vector<const Node*> statements;
 };
 
+// just wrapper right now, but will hold params later
 class FuncNode: public Node {
 public:
-	FuncNode(const IdentNode* _ident, SuiteNode* _suite):
-		ident(_ident)
-		,suite(_suite)
-	{	}
+	FuncNode(SuiteNode* _suite): suite(_suite){ }
 	~FuncNode(){}
-	FuncNode(const FuncNode&);
-	FuncNode& operator=(const FuncNode&);
-	void addStatement(const Node*);
+	FuncNode(const FuncNode&)=delete;
+	FuncNode& operator=(const FuncNode&)=delete;
+	virtual const Literal* eval() const { 
+		if(!suite) throw std::string("no suite");
+		suite->eval(); 
+		return nullptr;
+	}
+	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->eval(); }
+private:
+	SuiteNode* suite;
+};
+
+// assign a definition to a function name
+// different from AsgBinaryNode b/c it has to call setFunc from the tableManager not setVar
+class FuncAsgNode: public Node {
+public:
+	FuncAsgNode(const IdentNode* _ident, FuncNode* _func):
+		ident(_ident)
+		,func(_func)
+	{	}
+	~FuncAsgNode(){}
+	FuncAsgNode(const FuncAsgNode&)=delete;
+	FuncAsgNode& operator=(const FuncAsgNode&)=delete;
 	virtual const Literal* eval() const;
 	virtual void display() const;
 
 private:
 	const IdentNode* ident;
-	const SuiteNode* suite;	
+	const FuncNode* func;	
 }; 
+
 
 class CallNode: public Node {
 public:

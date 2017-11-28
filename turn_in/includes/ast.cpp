@@ -21,15 +21,17 @@ void PrintNode::display() const {
 	if (printMe) printMe->display();
 }
 
-const Literal* FuncNode::eval() const {
-	suite->eval();
+const Literal* FuncAsgNode::eval() const {
+	//~ suite->eval();
+	std::string name = ident->getIdent();
+	TableManager::getInstance().setFunc(name, func); 
 	return nullptr;
 }
 
-void FuncNode::display() const { 
-	cout << "FuncNode" << endl;
+void FuncAsgNode::display() const { 
+	cout << "FuncAsgNode" << endl;
 	ident->display();
-	suite->display();
+	func->display();
 }
 
 void SuiteNode::addStatement(const Node* node){
@@ -59,7 +61,7 @@ void IdentNode::display() const {
 }
 
 const Literal* CallNode::eval() const {
-	// get implementation from symbol table, call it
+	// push an scope to the tableManager, get implementation from symbol table, call it, pop that scope
 	TableManager&  manager = TableManager::getInstance();
 	manager.pushScope();
 	
