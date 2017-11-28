@@ -60,9 +60,15 @@ void IdentNode::display() const {
 
 const Literal* CallNode::eval() const {
 	// get implementation from symbol table, call it
-	string ident_str = ident->getIdent();
-	const FuncNode* function_impl = static_cast<const FuncNode*>( TableManager::getInstance().getFunc(ident_str) );
+	TableManager&  manager = TableManager::getInstance();
+	manager.pushScope();
+	
+	string function_name = ident->getIdent();
+	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );
 	function_impl->eval();
+	
+	manager.popScope();
+	
 	return nullptr;
 }
 
