@@ -7,6 +7,7 @@
 #include <algorithm>
 
 class Literal;
+class FuncNode;
 class Node;
 
 class SymbolTable {
@@ -15,7 +16,7 @@ public:
   SymbolTable() : vars(), funcs() {}
   
   void setVar(const std::string& name, const Literal* var);
-  void setFunc(const std::string&name, const Node* func);
+  void setFunc(const std::string&name, const FuncNode* func);
   
   const Literal* getVar(const std::string& name) const;
   const Node* getFunc(const std::string& name) const;
@@ -23,7 +24,7 @@ public:
   void		display();
 private:
   std::map<std::string, const Literal*> vars;
-  std::map<std::string, const Node*> funcs;
+  std::map<std::string, const FuncNode*> funcs;
 };
 
 #endif

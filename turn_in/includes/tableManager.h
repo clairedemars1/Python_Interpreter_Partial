@@ -8,13 +8,15 @@ public:
 	static TableManager& getInstance();
 
 	void setVar(const std::string& name, const Literal* var);
-	void setFunc(const std::string&name, const Node* func);
+	void setFunc(const std::string&name, const FuncNode* func);
 
 	const Literal* getVar(const std::string& name) const;
 	const Node* getFunc(const std::string& name) const;
 	
 	void pushScope();
 	void popScope();
+	
+	void display();
 	
 private:
 	std::vector<SymbolTable> tables;

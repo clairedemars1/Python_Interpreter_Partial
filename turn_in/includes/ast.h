@@ -16,11 +16,16 @@ extern void yyerror(const char*, const char);
 class IdentNode : public Node {
 public:
   IdentNode(const std::string& id) : Node(), ident(id) {
-	// std::cout << "made IdentNode" << endl;
   } 
   virtual ~IdentNode() {}
   const std::string getIdent() const { return ident; }
   virtual const Literal* eval() const;
+  //~ bool operator==(const IdentNode* rhs) const {
+	  //~ return this->ident == rhs->ident;
+  //~ }
+  //~ bool operator==(const IdentNode& rhs) const {
+	  //~ return this->ident == rhs.ident;
+  //~ }
 private:
   const std::string ident;
 };
@@ -44,7 +49,6 @@ public:
 		ident(_ident)
 		,suite(_suite)
 	{
-		
 		//~ TableManager::getInstance().setFunc(name, suite);
 	}
 	~FuncNode(){}

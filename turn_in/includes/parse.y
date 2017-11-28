@@ -3,19 +3,29 @@
 %{
 	#include <iostream>
 	#include <cstring>
+	#include <vector>
 	
 	#include "includes/ast.h"
-	#include "includes/symbolTable.h"
+	#include "includes/tableManager.h"
 	class Node;
+	
+	using std::endl;
+	using std::cout;
+	using std::string;
 	
 	int yylex (void);
 	extern char *yytext;
 	void yyerror (const char *);
 	PoolOfNodes& pool = PoolOfNodes::getInstance();
 	
-	using std::endl;
-	using std::cout;
-	using std::string;
+	int scopeLevel = 0; // 0 is global, 1 is in one function, 2 is in a nested function
+	
+	/*
+	- Print statements, assignments (of vars or functions), and function calls are their own "little trees"
+	When they are in the global scope, they are evaluated immediately after being written
+	- Function definitions in the global scope are stored in the global symbol table (in the table manager), any nested ones are stored as subtrees within them
+	*/
+	
 %}
 
 %token AMPEREQUAL AMPERSAND AND AS ASSERT AT BACKQUOTE BAR BREAK CIRCUMFLEX
@@ -94,10 +104,17 @@ funcdef // Used in: decorated, compound_stmt
 	{ 	
 		IdentNode* name = new IdentNode($2);
 		pool.add(name);
+		FuncNode* func = new FuncNode(name, $5);
+		pool.add($$);	
+			
+		if (scopeLevel == 0){
+			TableManager::getInstance().setFunc($2, func);
+		} else {
+			$$ = func;
+		}
+		
 		free($2);
-		$$ = new FuncNode(name, $5);
-		pool.add($$);		
-		cout << "done with func" << endl;
+
 	}
 	;
 parameters // Used in: funcdef
@@ -192,11 +209,17 @@ expr_stmt // Used in: small_stmt
 		pool.add(temp);	
 		$$ = new AsgBinaryNode($1, temp);
 		pool.add($$);
+		if (scopeLevel == 0){
+			$$->eval();
+		}
 	} 
 	| testlist star_EQUAL
 	{ 
 		$$ = new AsgBinaryNode($1, $2);
 		pool.add($$);
+		if (scopeLevel == 0){
+			$$->eval();
+		}
 	}
 	;
 pick_yield_expr_testlist // Used in: expr_stmt, star_EQUAL
@@ -210,6 +233,9 @@ star_EQUAL // Used in: expr_stmt, star_EQUAL
 		}else { // $1 is itself a literal node, so make an assignment node and pass it up
 			$$ = new AsgBinaryNode($1, $3);
 			pool.add($$);
+			if (scopeLevel == 0){
+				$$->eval();
+			}
 		}
 	}
 	| %empty
@@ -243,7 +269,11 @@ augassign // Used in: expr_stmt
 	;
 print_stmt // Used in: small_stmt
 	: PRINT opt_test
-	{ $2->eval()->print(); }
+	{ 
+		if (scopeLevel == 0){
+			$2->eval()->print();
+		}
+	}
 	| PRINT RIGHTSHIFT test opt_test_2
 	;
 star_COMMA_test // Used in: star_COMMA_test, opt_test, listmaker, testlist_comp, testlist, pick_for_test
@@ -449,9 +479,9 @@ suite // Used in: funcdef, if_stmt, star_ELIF, while_stmt, for_stmt, try_stmt, p
 	{
 		cout << "simple_stmt" << endl; 
 	}
-	| NEWLINE INDENT plus_stmt DEDENT
+	| { scopeLevel++; } NEWLINE INDENT plus_stmt DEDENT { scopeLevel--; }
 	{
-		$$ = $3;
+		$$ = $4;
 	}
 	;
 plus_stmt // Used in: suite, plus_stmt

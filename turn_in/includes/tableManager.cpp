@@ -15,7 +15,7 @@ const Node* TableManager::getFunc(const std::string& name) const {
 void TableManager::setVar(const std::string& name, const Literal* var) { 
 	tables[currentScope].setVar(name, var);
 }
-void TableManager::setFunc(const std::string& name, const Node* func) { 
+void TableManager::setFunc(const std::string& name, const FuncNode* func) { 
 	tables[currentScope].setFunc(name, func);
 }
 
@@ -25,4 +25,10 @@ void TableManager::pushScope(){
 
 void TableManager::popScope(){
 	tables.pop_back();
+}
+
+void TableManager::display(){
+	for (auto t: tables){
+		t.display();
+	}
 }
