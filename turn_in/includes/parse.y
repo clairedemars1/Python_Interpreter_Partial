@@ -97,6 +97,7 @@ funcdef // Used in: decorated, compound_stmt
 		free($2);
 		$$ = new FuncNode(name, $5);
 		pool.add($$);		
+		cout << "done with func" << endl;
 	}
 	;
 parameters // Used in: funcdef

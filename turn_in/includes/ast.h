@@ -40,18 +40,21 @@ private:
 
 class FuncNode: public Node {
 public:
-	FuncNode(const std::string& name, SuiteNode* suite)
+	FuncNode(const IdentNode* _ident, SuiteNode* _suite):
+		ident(_ident)
+		,suite(_suite)
 	{
-		TableManager::getInstance().setFunc(name, suite);
+		
+		//~ TableManager::getInstance().setFunc(name, suite);
 	}
 	~FuncNode(){}
 	FuncNode(const FuncNode&);
 	FuncNode& operator=(const FuncNode&);
 	void addStatement(const Node*);
 	virtual const Literal* eval() const;
-//~ private:
-	// std::string& name; // don't need to store this, it's in the symbol table
-	// SuiteNode* suite;	
+private:
+	const IdentNode* ident;
+	const SuiteNode* suite;	
 }; 
 
 class CallNode: public Node {
