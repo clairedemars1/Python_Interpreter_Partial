@@ -26,8 +26,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #include "includes/poolOfNodes.h"
 //~ #include "includes/parse.tab.h"
+using std::endl;
+using std::cout;
+
 extern int yyparse();
 int yylex_destroy();
 int yydebug = 0;  /* Change to 1 if you want debugging */
@@ -51,9 +55,17 @@ int main(int argc, char * argv[]) {
     input_file = open_file(argv[1]);
   }
   init_scanner(input_file);
-  int parse_had_errors = yyparse();
-  if (parse_had_errors) {
-    fprintf(stderr,"Abnormal termination\n");
+  int parse_had_errors = 0;
+  try {
+	  parse_had_errors = yyparse();
+	  if (parse_had_errors) {
+		fprintf(stderr,"Abnormal termination\n");
+	  }
+  } catch ( const std::string& msg) {
+	  cout << msg << endl;
+  } 
+  catch ( const char* msg){
+	  cout << msg << endl;
   }
   
   free_scanner();

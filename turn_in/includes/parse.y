@@ -103,7 +103,7 @@ funcdef // Used in: decorated, compound_stmt
 		IdentNode* name = new IdentNode($2);
 		pool.add(name);
 		FuncNode* func = new FuncNode(name, $5);
-		pool.add($$);	
+		pool.add(func);	
 			
 		if (scopeLevel == 0){
 			TableManager::getInstance().setFunc($2, func);
@@ -267,6 +267,7 @@ print_stmt // Used in: small_stmt
 	: PRINT opt_test
 	{ 	
 		PrintNode* printNode = new PrintNode($2);
+		pool.add(printNode);
 		if (scopeLevel == 0){
 			printNode->eval();
 		} else {
