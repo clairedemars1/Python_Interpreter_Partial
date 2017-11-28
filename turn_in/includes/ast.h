@@ -63,13 +63,13 @@ private:
 
 class CallNode: public Node {
 public:
-	CallNode(const Node* _ident): Node(), ident(_ident){}
+	CallNode(const IdentNode* _ident): Node(), ident(_ident){}
 	~CallNode(){}
 	CallNode(const CallNode&)=delete;
 	CallNode& operator=(const CallNode&)=delete;
 	virtual const Literal* eval() const;
 private:
-	const Node* ident;
+	const IdentNode* ident;
 };
 
 class BinaryNode : public Node {

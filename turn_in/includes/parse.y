@@ -112,9 +112,7 @@ funcdef // Used in: decorated, compound_stmt
 		} else {
 			$$ = func;
 		}
-		
 		free($2);
-
 	}
 	;
 parameters // Used in: funcdef
@@ -649,7 +647,7 @@ power // Used in: factor
 	| atom star_trailer
 	{	
 		if($2){ // function calls
-			$$ = new CallNode($1);
+			$$ = new CallNode(static_cast<IdentNode*>($1) );
 			pool.add($$);
 			$$->eval();
 		} else { // just an atom (number, name, etc.)

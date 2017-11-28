@@ -6,10 +6,10 @@ TableManager& TableManager::getInstance(){
 }
 
 const Literal* TableManager::getVar(const std::string& name) const {
-  return tables[currentScope].getVar(name);
+  return tables[currentScope].getVar(name); // todo check other scopes
 }
 const Node* TableManager::getFunc(const std::string& name) const {
-   return tables[currentScope].getFunc(name);
+   return tables[currentScope].getFunc(name);// todo check other scopes
 }
 
 void TableManager::setVar(const std::string& name, const Literal* var) { 

@@ -21,7 +21,7 @@ public:
   const Literal* getVar(const std::string& name) const;
   const Node* getFunc(const std::string& name) const;
   
-  void		display();
+  void	display();
 private:
   std::map<std::string, const Literal*> vars;
   std::map<std::string, const FuncNode*> funcs;

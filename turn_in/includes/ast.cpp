@@ -4,11 +4,12 @@
 #include <cmath>
 #include <cstdlib>
 #include <iomanip>
+#include <string>
 #include "ast.h"
 #include "tableManager.h"
 using std::endl;
 using std::cout;
-
+using std::string;
 
 //~ void FuncNode::addStatement(const Node* node){
 	//~ suite->addStatement(node);
@@ -35,6 +36,10 @@ const Literal* IdentNode::eval() const {
 }
 
 const Literal* CallNode::eval() const {
+	// get implementation from symbol table, call it
+	string ident_str = ident->getIdent();
+	const Node* function_impl = TableManager::getInstance().getFunc(ident_str);
+	function_impl->eval();
 	return nullptr;
 }
 
