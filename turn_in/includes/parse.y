@@ -97,7 +97,7 @@ pick_NEWLINE_stmt // Used in: star_NEWLINE_stmt
 	| stmt
 	{ 	
 		if ($1){
-			//$1->eval();
+			$1->eval();
 		}
 	}
 	;
@@ -131,12 +131,7 @@ funcdef // Used in: decorated, compound_stmt
 		pool.add(func);
 		FuncAsgNode* asg = new FuncAsgNode(name, func);
 		pool.add(asg);
-			
-		if (scopeLevel == 0){
-			asg->eval();
-		} else {
-			$$ = asg;
-		}
+		$$ = asg;
 		free($2);
 	}
 	;
@@ -232,18 +227,12 @@ expr_stmt // Used in: small_stmt
 		pool.add(temp);	
 		$$ = new AsgBinaryNode($1, temp);
 		pool.add($$);
-		if (scopeLevel == 0){
-			$$->eval();
-		}
 	} 
 	| testlist star_EQUAL
 	{ 
 		if ($2){
 			$$ = new AsgBinaryNode($1, $2);
 			pool.add($$);
-			if (scopeLevel == 0){
-				$$->eval();
-			}
 		}
 	}
 	;
@@ -258,9 +247,6 @@ star_EQUAL // Used in: expr_stmt, star_EQUAL
 		} else { // $1 is itself a literal node, so make an assignment node and pass it up
 			$$ = new AsgBinaryNode($1, $3);
 			pool.add($$);
-			if (scopeLevel == 0){
-				$$->eval();
-			}
 		}
 	}
 	| %empty
@@ -297,13 +283,7 @@ print_stmt // Used in: small_stmt
 	{ 	
 		PrintNode* printNode = new PrintNode($2);
 		pool.add(printNode);
-		if (scopeLevel == 0){
-		
-			printNode->eval();
-			$$ = printNode;
-		} else {
-			$$ = printNode;
-		}
+		$$ = printNode;
 	}
 	| PRINT RIGHTSHIFT test opt_test_2
 	;
@@ -682,7 +662,6 @@ power // Used in: factor
 		if($2){ // function calls
 			$$ = new CallNode(static_cast<IdentNode*>($1) );
 			pool.add($$);
-			$$->eval();
 		} else { // just an atom (number, name, etc.)
 			$$ = $1; 	
 		}

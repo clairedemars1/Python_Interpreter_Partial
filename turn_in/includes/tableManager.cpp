@@ -45,12 +45,10 @@ void TableManager::setFunc(const std::string& name, const FuncNode* func) {
 
 void TableManager::pushScope(){
 	tables.push_back( SymbolTable() );
-	cout << "pushed a scope" << endl;
 }
 
 void TableManager::popScope(){
 	tables.pop_back();
-	cout << "popped a scope" << endl;
 }
 
 void TableManager::display() const {

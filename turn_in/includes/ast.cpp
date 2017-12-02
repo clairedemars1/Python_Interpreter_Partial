@@ -22,7 +22,6 @@ void PrintNode::display() const {
 }
 
 const Literal* FuncAsgNode::eval() const {
-	cout << "func asg node  eval " << endl;
 	std::string name = ident->getIdent();
 	TableManager::getInstance().setFunc(name, func); 
 	return nullptr;
@@ -66,11 +65,9 @@ const Literal* CallNode::eval() const {
 	// push an scope to the tableManager, get implementation from symbol table, call it, pop that scope
 	TableManager&  manager = TableManager::getInstance();
 	manager.pushScope();
+	
 	string function_name = ident->getIdent();
-	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );
-	
-	cout <<  ident->getIdent() << endl;
-	
+	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );	
 	function_impl->eval();
 	
 	manager.popScope();

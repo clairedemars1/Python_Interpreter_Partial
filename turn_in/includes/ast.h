@@ -53,7 +53,7 @@ private:
 	std::vector<const Node*> statements;
 };
 
-// just wrapper right now, but will hold params later
+// function definition: code and params
 class FuncNode: public Node {
 public:
 	FuncNode(SuiteNode* _suite): suite(_suite){ }
@@ -68,6 +68,7 @@ public:
 	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->display(); }
 private:
 	SuiteNode* suite;
+	// todo params
 };
 
 // assign a definition to a function name
@@ -77,7 +78,7 @@ public:
 	FuncAsgNode(const IdentNode* _ident, FuncNode* _func):
 		ident(_ident)
 		,func(_func)
-	{	cout << "made func asg node" << endl; }
+	{}
 	~FuncAsgNode(){}
 	FuncAsgNode(const FuncAsgNode&)=delete;
 	FuncAsgNode& operator=(const FuncAsgNode&)=delete;

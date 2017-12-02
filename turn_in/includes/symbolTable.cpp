@@ -19,7 +19,6 @@ const Node* SymbolTable::getFunc(const std::string& name) const {
 	std::map<std::string, const FuncNode*>::const_iterator it = 
 		funcs.find(name);
 	if ( it == funcs.end() ){
-		   display();
 		   return &UndefLiteral::getInstance();
 	}
     return it->second;
@@ -39,7 +38,6 @@ void SymbolTable::setVar(const std::string& name, const Literal* var) {
 	vars[name] = var;
 }
 void SymbolTable::setFunc(const std::string& name, const FuncNode* func) { 
-	func->display();
 	funcs[name] = func;	
 }
 
