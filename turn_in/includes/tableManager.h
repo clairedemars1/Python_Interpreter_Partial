@@ -16,7 +16,7 @@ public:
 	void pushScope();
 	void popScope();
 	
-	void display();
+	void display() const;
 	
 private:
 	std::vector<SymbolTable> tables;

@@ -95,9 +95,9 @@ file_input // Used in: start
 pick_NEWLINE_stmt // Used in: star_NEWLINE_stmt
 	: NEWLINE
 	| stmt
-	{ 
+	{ 	
 		if ($1){
-			//$1->display();
+			//$1->eval();
 		}
 	}
 	;
@@ -299,7 +299,9 @@ print_stmt // Used in: small_stmt
 		PrintNode* printNode = new PrintNode($2);
 		pool.add(printNode);
 		if (scopeLevel == 0){
+		
 			printNode->eval();
+			$$ = printNode;
 		} else {
 			$$ = printNode;
 		}

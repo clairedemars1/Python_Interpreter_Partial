@@ -1,4 +1,7 @@
+#include <iostream>
 #include "tableManager.h"
+using std::cout;
+using std::endl;
 
 TableManager& TableManager::getInstance(){
 	static TableManager instance;
@@ -21,13 +24,17 @@ void TableManager::setFunc(const std::string& name, const FuncNode* func) {
 
 void TableManager::pushScope(){
 	tables.push_back( SymbolTable() );
+	currentScope--;
+	cout << "pushed a scope" << endl;
 }
 
 void TableManager::popScope(){
+	currentScope++;
 	tables.pop_back();
+	cout << "popped a scope" << endl;
 }
 
-void TableManager::display(){
+void TableManager::display() const {
 	for (auto t: tables){
 		t.display();
 	}
