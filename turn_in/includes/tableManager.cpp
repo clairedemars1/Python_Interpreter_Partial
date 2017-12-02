@@ -24,12 +24,12 @@ void TableManager::setFunc(const std::string& name, const FuncNode* func) {
 
 void TableManager::pushScope(){
 	tables.push_back( SymbolTable() );
-	currentScope--;
+	currentScope++;
 	cout << "pushed a scope" << endl;
 }
 
 void TableManager::popScope(){
-	currentScope++;
+	currentScope--;
 	tables.pop_back();
 	cout << "popped a scope" << endl;
 }

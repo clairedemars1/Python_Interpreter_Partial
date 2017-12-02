@@ -43,6 +43,44 @@ public:
   virtual void changeSign() {}
 };
 
+class UndefLiteral: public Literal {
+  const Literal& getInstance() const { return *this; }
+  virtual Literal* operator+(const Literal& rhs) const;
+  virtual Literal* opPlus(float) const;
+  virtual Literal* opPlus(int) const;
+
+  virtual Literal* operator*(const Literal& rhs) const;
+  virtual Literal* opMult(float) const;
+  virtual Literal* opMult(int) const;
+
+  virtual Literal* operator-(const Literal& rhs) const;
+  virtual Literal* opSubt(float) const;
+  virtual Literal* opSubt(int) const;
+
+  virtual Literal* operator/(const Literal& rhs) const;
+  virtual Literal* opDiv(float) const;
+  virtual Literal* opDiv(int) const;
+  
+  virtual Literal* operatorDoubleSlash(const Literal& rhs) const;
+  virtual Literal* opDoubleSlash(float) const;
+  virtual Literal* opDoubleSlash(int) const;
+  
+  virtual Literal* operator%(const Literal& rhs) const;
+  virtual Literal* opMod(float) const;
+  virtual Literal* opMod(int) const;
+  
+  virtual Literal* operatorPower(const Literal& rhs) const;
+  virtual Literal* opPow(float) const;
+  virtual Literal* opPow(int) const;
+
+  virtual const Literal* eval() const;
+  virtual void print() const;
+  void changeSign();
+  virtual void display() const;
+private:
+    UndefLiteral() {}
+};
+
 class FloatLiteral: public Literal {
 public:
   FloatLiteral(float _val): val(_val) {}

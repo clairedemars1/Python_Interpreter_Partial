@@ -64,7 +64,7 @@ const Literal* CallNode::eval() const {
 	// push an scope to the tableManager, get implementation from symbol table, call it, pop that scope
 	TableManager&  manager = TableManager::getInstance();
 	manager.pushScope();
-	
+
 	string function_name = ident->getIdent();
 	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );
 	function_impl->eval();
