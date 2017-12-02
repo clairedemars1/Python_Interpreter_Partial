@@ -2,8 +2,9 @@ strategies:
 unary: add negativity to binary nodes and literals (not identifier nodes). division is the only one that will make use of that when it does it operation. binary nodes store it as a bool, literals store it in the value itself.
 
 todo:
-#it's calling g() when defining f: g is the asg node that's created
-# so problem's in parse.y
+implement return vals
+implement if, else
+implement relational operators
 
 todo longterm:
 remove -fpermissive, and make a wrapping unary node

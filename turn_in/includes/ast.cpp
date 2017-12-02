@@ -39,6 +39,7 @@ void SuiteNode::addStatement(const Node* node){
 
 const Literal* SuiteNode::eval() const {
 	for(auto s: statements){
+		// todo 
 		if (s) s->eval();
 	}
 	return nullptr;
@@ -60,19 +61,24 @@ void IdentNode::display() const {
 	cout << "IdentNode: " << getIdent() << endl;
 }
 
-const Literal* CallNode::eval() const {
+const Literal* FuncNode::eval() const { 
+		if(!suite) throw std::string("no suite");
+		const Literal* returnVal = suite->eval(); 
+		return returnVal;
+}
 
-	// push an scope to the tableManager, get implementation from symbol table, call it, pop that scope
+const Literal* CallNode::eval() const {
 	TableManager&  manager = TableManager::getInstance();
+	
 	manager.pushScope();
 	
 	string function_name = ident->getIdent();
 	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );	
-	function_impl->eval();
+	const Literal* returnVal = function_impl->eval();
 	
 	manager.popScope();
 	
-	return nullptr;
+	return returnVal;
 }
 
 void CallNode::display() const {

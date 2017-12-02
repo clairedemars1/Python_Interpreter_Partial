@@ -10,5 +10,20 @@ def f():
       print 2
     print 101
 
-f()
-print 17
+print f()
+
+def g():
+	x = 2
+	return x
+y = g()
+print(y)
+
+def h():
+	x = 3 
+	return y
+print h()
+
+def p():
+	x = 2
+
+print p()

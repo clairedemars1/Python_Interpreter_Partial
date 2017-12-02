@@ -60,11 +60,7 @@ public:
 	~FuncNode(){}
 	FuncNode(const FuncNode&)=delete;
 	FuncNode& operator=(const FuncNode&)=delete;
-	virtual const Literal* eval() const { 
-		if(!suite) throw std::string("no suite");
-		suite->eval(); 
-		return nullptr;
-	}
+	virtual const Literal* eval() const;
 	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->display(); }
 private:
 	SuiteNode* suite;
