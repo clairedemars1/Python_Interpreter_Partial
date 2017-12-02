@@ -10,7 +10,7 @@ TableManager& TableManager::getInstance(){
 }
 
 const Literal* TableManager::getVar(const std::string& name) const {
-	int currentScope = tables.size();
+	int currentScope = tables.size() - 1;
 	while(currentScope >= 0){
 		bool isInCurrentScope = tables[currentScope].isPresentVar(name);
 		if (isInCurrentScope){
@@ -22,7 +22,7 @@ const Literal* TableManager::getVar(const std::string& name) const {
 	throw std::string("NameError: name '"+name+"' is not defined");
 }
 const Node* TableManager::getFunc(const std::string& name) const {
-  	int currentScope = tables.size();
+  	int currentScope = tables.size() - 1;
 	while(currentScope >= 0){
 		bool isInCurrentScope = tables[currentScope].isPresentFunc(name);
 		if (isInCurrentScope){
@@ -35,12 +35,11 @@ const Node* TableManager::getFunc(const std::string& name) const {
 }
 
 void TableManager::setVar(const std::string& name, const Literal* var) { 
-	int currentScope = tables.size();
+	int currentScope = tables.size() - 1;
 	tables[currentScope].setVar(name, var);
 }
 void TableManager::setFunc(const std::string& name, const FuncNode* func) { 
-	int currentScope = tables.size();
-	cout << currentScope << endl;
+	int currentScope = tables.size() - 1; 
 	tables[currentScope].setFunc(name, func);
 }
 
