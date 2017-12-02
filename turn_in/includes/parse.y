@@ -17,9 +17,7 @@
 	extern char *yytext;
 	void yyerror (const char *);
 	PoolOfNodes& pool = PoolOfNodes::getInstance();
-	
-	int scopeLevel = 0; // 0 is global, 1 is in one function, 2 is in a nested function
-	
+		
 	/* Implementation Notes:
 	Print statements, assignments (of vars or functions), and function calls are their own "little trees".
 	When they are in the global scope, they are evaluated immediately after being written
@@ -77,7 +75,7 @@
 %type<node_p> opt_yield_test pick_yield_expr_testlist_comp testlist_comp test
 %type< node_p> pick_yield_expr_testlist star_EQUAL expr_stmt testlist 
 %type<node_p> star_COMMA_test yield_expr or_test lambdef plus_STRING
-%type<node_p> funcdef print_stmt
+%type<node_p> funcdef print_stmt return_stmt
 
 %type<suite_node_p> plus_stmt stmt suite
 
@@ -327,7 +325,13 @@ continue_stmt // Used in: flow_stmt
 	;
 return_stmt // Used in: flow_stmt
 	: RETURN testlist
+	{ 
+		$$ = new ReturnNode($2);
+	}	
 	| RETURN
+	{
+		$$ = new ReturnNode();
+	}
 	;
 yield_stmt // Used in: flow_stmt
 	: yield_expr
@@ -490,9 +494,9 @@ suite // Used in: funcdef, if_stmt, star_ELIF, while_stmt, for_stmt, try_stmt, p
 	{
 		cout << "simple_stmt" << endl; 
 	}
-	| { scopeLevel++; } NEWLINE INDENT plus_stmt DEDENT { scopeLevel--; }
+	| NEWLINE INDENT plus_stmt DEDENT 
 	{
-		$$ = $4;
+		$$ = $3 ; // plus_stmt
 	}
 	;
 plus_stmt // Used in: suite, plus_stmt

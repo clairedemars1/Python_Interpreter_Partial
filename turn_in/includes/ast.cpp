@@ -11,6 +11,14 @@ using std::endl;
 using std::cout;
 using std::string;
 
+const Literal* ReturnNode::eval() const {
+	return returnMe->eval();
+}
+void ReturnNode::display() const { 
+	cout << "ReturnNode" << endl;
+	if (returnMe) returnMe->display();
+}
+
 const Literal* PrintNode::eval() const {
 	const Literal* temp = printMe->eval();
 	if (temp) temp->print();
@@ -40,6 +48,8 @@ void SuiteNode::addStatement(const Node* node){
 const Literal* SuiteNode::eval() const {
 	for(auto s: statements){
 		// todo 
+		const ReturnNode* doReturn = dynamic_cast<const ReturnNode*>(s);
+		if (doReturn) { return s->eval(); }
 		if (s) s->eval();
 	}
 	return nullptr;

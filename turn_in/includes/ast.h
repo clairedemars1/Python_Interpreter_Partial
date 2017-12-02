@@ -13,6 +13,20 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
+class ReturnNode: public Node {
+public:
+	ReturnNode(const Node* _returnMe): Node(), returnMe(_returnMe){ }
+	ReturnNode(): Node(), returnMe( &(NoneLiteral::getInstance()) ){ }
+	~ReturnNode(){}
+	ReturnNode(const ReturnNode&)=delete;
+	ReturnNode& operator=(const ReturnNode&)=delete;
+	virtual const Literal* eval() const;
+	virtual void display() const;
+private:
+	const Node* returnMe;
+	
+};
+
 class PrintNode: public Node {
 public:
 	PrintNode(const Node* _printMe): Node(), printMe(_printMe){ }
