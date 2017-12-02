@@ -129,7 +129,6 @@ funcdef // Used in: decorated, compound_stmt
 		
 		FuncNode* func = new FuncNode($5); // later: pass parameters too
 		pool.add(func);
-		
 		FuncAsgNode* asg = new FuncAsgNode(name, func);
 		pool.add(asg);
 			

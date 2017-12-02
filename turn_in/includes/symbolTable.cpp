@@ -36,17 +36,11 @@ bool SymbolTable::isPresentFunc(const std::string& name) const {
 }
 
 void SymbolTable::setVar(const std::string& name, const Literal* var) {
-	cout << "setting var " << name << endl; 
 	vars[name] = var;
 }
 void SymbolTable::setFunc(const std::string& name, const FuncNode* func) { 
-	cout << "setting func " << name << endl; 
-	cout << "to this ";
 	func->display();
-	cout << "_____" << endl;
-	funcs[name] = func;
-	
-	cout << "don't get here" << endl;
+	funcs[name] = func;	
 }
 
 void SymbolTable::display() const {

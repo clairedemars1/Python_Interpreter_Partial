@@ -77,7 +77,7 @@ public:
 	FuncAsgNode(const IdentNode* _ident, FuncNode* _func):
 		ident(_ident)
 		,func(_func)
-	{	}
+	{	cout << "made func asg node" << endl; }
 	~FuncAsgNode(){}
 	FuncAsgNode(const FuncAsgNode&)=delete;
 	FuncAsgNode& operator=(const FuncAsgNode&)=delete;

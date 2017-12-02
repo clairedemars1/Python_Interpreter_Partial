@@ -6,3 +6,6 @@ def f():
 		print(x)
 	g()
 f()
+
+#it's calling g() when defining f: g is the asg node that's created
+# so problem's in parse.y
