@@ -47,6 +47,7 @@ const Literal* SuiteNode::eval() const {
 
 void SuiteNode::display() const {
 	for(auto s: statements){
+		cout << "stmt" << endl;
 		if (s) s->display();
 	}
 }

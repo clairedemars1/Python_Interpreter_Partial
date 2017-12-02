@@ -43,8 +43,13 @@ public:
   virtual void changeSign() {}
 };
 
+// an undefined Node
 class UndefLiteral: public Literal {
-  const Literal& getInstance() const { return *this; }
+public: 
+  static const Literal& getInstance() { 
+	  static const UndefLiteral instance;
+	  return instance; 
+  }
   virtual Literal* operator+(const Literal& rhs) const;
   virtual Literal* opPlus(float) const;
   virtual Literal* opPlus(int) const;

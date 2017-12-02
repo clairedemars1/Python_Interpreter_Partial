@@ -20,8 +20,7 @@ public:
 	
 private:
 	std::vector<SymbolTable> tables;
-	int currentScope;
-	TableManager(): tables(), currentScope(0) { 
+	TableManager(): tables() { 
 		tables.push_back(SymbolTable());  // global scope
 	}
 };

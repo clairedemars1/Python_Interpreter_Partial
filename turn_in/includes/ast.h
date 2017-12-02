@@ -65,7 +65,7 @@ public:
 		suite->eval(); 
 		return nullptr;
 	}
-	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->eval(); }
+	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->display(); }
 private:
 	SuiteNode* suite;
 };
