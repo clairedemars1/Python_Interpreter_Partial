@@ -11,7 +11,18 @@ using std::endl;
 using std::cout;
 using std::string;
 
-const Literal* ReturnNode::eval() const {
+//~ const Literal* NegNode::eval() const {
+	//~ if (!makeMeNeg){ throw std::string("error with neg node"); }
+	//~ const const Literal* result = makeMeNeg->eval();
+//~ }
+//~ 
+//~ void NegNode::display() const { 
+	//~ cout << "NegNode" << endl;
+	//~ if (makeMeNeg) makeMeNeg->display();
+//~ }
+
+const Literal* ReturnNode::eval() const {	
+	if (!returnMe){ throw std::string("error with return node"); }
 	return returnMe->eval();
 }
 void ReturnNode::display() const { 
@@ -20,6 +31,7 @@ void ReturnNode::display() const {
 }
 
 const Literal* PrintNode::eval() const {
+	if (!printMe){ throw std::string("error with print node"); }
 	const Literal* temp = printMe->eval();
 	if (temp) temp->print();
 	return nullptr;
@@ -116,8 +128,7 @@ const Literal* AddBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-   Literal* result = (*x)+(*y);
-  if ( isNegative() ){ result->changeSign(); }
+   const Literal* result = (*x)+(*y);
   return result;
   //return (*x).operator+(*y);
 }
@@ -128,8 +139,7 @@ const Literal* SubBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x)-(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x)-(*y);
   return result;
 }
 
@@ -139,8 +149,7 @@ const Literal* MulBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x)*(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x)*(*y);
   return result;
 }
 
@@ -150,8 +159,7 @@ const Literal* DivBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x)/(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x)/(*y);
   return result;
 }
 
@@ -161,8 +169,7 @@ const Literal* DoubleSlashBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x).operatorDoubleSlash(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x).operatorDoubleSlash(*y);
   return result;
 }
 
@@ -172,8 +179,7 @@ const Literal* ModBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x).operator %(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x).operator %(*y);
   return result;
 }
 
@@ -183,18 +189,17 @@ const Literal* PowBinaryNode::eval() const {
   }
   const Literal* x = left->eval();
   const Literal* y = right->eval();
-  Literal* result = (*x).operatorPower(*y);
-  if ( isNegative() ){ result->changeSign(); }
+  const Literal* result = (*x).operatorPower(*y);
   return result;
 }
 
-const Literal* LessNode::eval() const { 
-  if (!left || !right) {
-    throw "less error";
-  }
-  const Literal* x = left->eval();
-  const Literal* y = right->eval();
-  Literal* result = x-> < *y;
-  return result;
-}
+//~ const Literal* LessNode::eval() const { 
+  //~ if (!left || !right) {
+    //~ throw "less error";
+  //~ }
+  //~ const Literal* x = left->eval();
+  //~ const Literal* y = right->eval();
+  //~ const Literal* result = x-> < *y;
+  //~ return result;
+//~ }
 

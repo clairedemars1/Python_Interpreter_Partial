@@ -641,7 +641,11 @@ factor // Used in: term, factor, power
 	{ 	int pick_unop = $1;
 		Node* factor = $2;
 		if ( pick_unop == MINUS){
-			factor->changeSign();
+			//factor->changeSign();
+			Node* zeroNode = new IntLiteral(0);
+			pool.add(zeroNode);
+			factor = new SubBinaryNode(zeroNode, factor);
+			pool.add(factor);
 		}
 		$$ = factor;
 	}

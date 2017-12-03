@@ -11,7 +11,6 @@ public:
   virtual void print() const { 
     std::cout << "NODE" << std::endl; 
   }
-  virtual void changeSign(){ std::cout << "you should not be calling me" << std::endl; }
   virtual void display() const {};
 protected:
   virtual bool isNegative() const { return false; }

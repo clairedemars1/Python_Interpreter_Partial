@@ -13,6 +13,19 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
+
+//~ class NegNode: public Node {
+//~ public:
+	//~ NegNode(): Node(const Node* n), makeMeNeg(n) {}
+	//~ ~NegNode(){}
+	//~ NegNode(const NegNode&)=delete;
+	//~ NegNode& operator=(const NegNode&)=delete;
+	//~ virtual const Literal* eval() const;
+	//~ virtual void display() const;
+//~ private:
+	//~ const Node* makeMeNeg;
+//~ };
+
 class ReturnNode: public Node {
 public:
 	ReturnNode(const Node* _returnMe): Node(), returnMe(_returnMe){ }
@@ -115,24 +128,17 @@ private:
 
 class BinaryNode : public Node {
 public:
-  BinaryNode(Node* l, Node* r) : Node(), left(l), right(r), is_neg(false) {}
+  BinaryNode(Node* l, Node* r) : Node(), left(l), right(r) {}
   virtual const Literal* eval() const = 0;
   Node* getLeft()  const { return left; }
   Node* getRight() const { return right; }
   BinaryNode(const BinaryNode&) = delete;
   BinaryNode& operator=(const BinaryNode&) = delete;
-  virtual void changeSign(){
-	is_neg = !is_neg;
-  }
-  virtual bool isNegative() const {
-	return is_neg;
-  }
   virtual void display(){ cout << typeid(*this).name() << endl; }
 protected:
   Node *left;
   Node *right;
 private:
-  bool is_neg;
 };
 
 class AsgBinaryNode : public BinaryNode {
@@ -183,11 +189,11 @@ public:
   virtual const Literal* eval() const;
 };
 
-class LessNode: public BinaryNode {
-public:
-	LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
-	virtual const Literal* eval() const; 
-};
+//~ class LessNode: public BinaryNode {
+//~ public:
+	//~ LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	//~ virtual const Literal* eval() const; 
+//~ };
 
 /*
 	: LESS
