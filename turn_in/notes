@@ -2,8 +2,8 @@ strategies:
 unary: add negativity to binary nodes and literals (not identifier nodes). division is the only one that will make use of that when it does it operation. binary nodes store it as a bool, literals store it in the value itself.
 
 todo:
-implement return vals
-implement if, else
+relational operator (binary nodes)
+implement if, else (make sure the suite thing doesn't "return" an if suite
 implement relational operators
 
 todo longterm:

@@ -183,3 +183,22 @@ public:
   virtual const Literal* eval() const;
 };
 
+class LessNode: public BinaryNode {
+public:
+	LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
+
+/*
+	: LESS
+	| GREATER
+	| EQEQUAL
+	| GREATEREQUAL
+	| LESSEQUAL
+	| GRLT
+	| NOTEQUAL
+	| IN
+	| NOT IN
+	| IS
+	| IS NOT
+*/

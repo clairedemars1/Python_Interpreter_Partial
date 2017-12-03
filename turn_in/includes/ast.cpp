@@ -188,3 +188,13 @@ const Literal* PowBinaryNode::eval() const {
   return result;
 }
 
+const Literal* LessNode::eval() const { 
+  if (!left || !right) {
+    throw "less error";
+  }
+  const Literal* x = left->eval();
+  const Literal* y = right->eval();
+  Literal* result = x-> < *y;
+  return result;
+}
+
