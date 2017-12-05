@@ -5,7 +5,7 @@
     return rhs.opPlus(val);
   }
  const Literal*IntLiteral::opPlus(float lhs) const  {
-   const Literal*node = new IntLiteral(static_cast<float>(val) + lhs);
+   const Literal*node = new FloatLiteral(static_cast<float>(val) + lhs);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -19,7 +19,7 @@
     return rhs.opSubt(val);
   }
  const Literal*IntLiteral::opSubt(float lhs) const  {
-   const Literal*node = new IntLiteral(lhs - val);
+   const Literal*node = new FloatLiteral(lhs - val);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -33,7 +33,7 @@
     return rhs.opMult(val);
   }
  const Literal*IntLiteral::opMult(float lhs) const  {
-   const Literal*node = new IntLiteral(lhs * val);
+   const Literal*node = new FloatLiteral(lhs * val);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -49,7 +49,7 @@
  const Literal*IntLiteral::opDiv(float lhs) const  {
     if ( val == 0 ) throw std::string("Zero Division Error");
     float result = lhs/val;
-   const Literal*node = new IntLiteral(result);
+   const Literal*node = new FloatLiteral(result);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -69,7 +69,7 @@
   
  const Literal*IntLiteral::opDoubleSlash(float lhs) const {
 	if ( val == 0 ) throw std::string("Zero Division Error");
-	Literal* node = new IntLiteral(floor(lhs / (float) val));
+	Literal* node = new FloatLiteral(floor(lhs / (float) val));
 	PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -88,7 +88,7 @@
 	if ( val == 0 ) throw std::string("Zero Division Error");
 	float result =  std::fmod(lhs, val);
 	if (result == -0.0) { result = 0.0; }; // python % never returns -0.0 or -0
-	Literal* node = new IntLiteral( result );
+	Literal* node = new FloatLiteral( result );
 	PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -105,7 +105,7 @@
   }
   
  const Literal*IntLiteral::opPow(float lhs) const{
-	Literal* node = new IntLiteral( pow(lhs, val) );
+	Literal* node = new FloatLiteral( pow(lhs, val) );
     PoolOfNodes::getInstance().add(node);
 	return node;
   }
