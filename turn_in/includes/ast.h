@@ -183,16 +183,34 @@ public:
 	virtual const Literal* eval() const; 
 };
 
-/*
-	: LESS
-	| GREATER
-	| EQEQUAL
-	| GREATEREQUAL
-	| LESSEQUAL
-	| GRLT
-	| NOTEQUAL
-	| IN
-	| NOT IN
-	| IS
-	| IS NOT
-*/
+class LessEqualBinaryNode: public BinaryNode {
+public:
+	LessEqualBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
+
+class GreaterBinaryNode: public BinaryNode {
+public:
+	GreaterBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
+
+class GreaterEqualBinaryNode: public BinaryNode {
+public:
+	GreaterEqualBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
+
+class EqualEqualBinaryNode: public BinaryNode {
+public:
+	EqualEqualBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
+
+class NotEqualBinaryNode: public BinaryNode {
+public:
+	NotEqualBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const;
+};
+
+

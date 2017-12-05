@@ -528,21 +528,26 @@ comparison // Used in: not_test, comparison
 	: expr
 	| comparison comp_op expr
 	{ 
-		//cout << $2 << endl;
-		
-		if ($2 == LESS) {
-			$$ = new LessBinaryNode($1, $3);
+		$$ = nullptr;
+		switch($2){
+			case LESS: $$ = new LessBinaryNode($1, $3); break;
+			case GREATER: $$ = new GreaterBinaryNode($1, $3); break;
+			case EQEQUAL: $$ = new EqualEqualBinaryNode($1, $3); break;
+			case GREATEREQUAL: $$ = new GreaterEqualBinaryNode($1, $3); break;
+			case LESSEQUAL: $$ = new LessEqualBinaryNode($1, $3); break;
+			case NOTEQUAL: $$ = new NotEqualBinaryNode($1, $3); break;
 		}
+		pool.add($$);
 	}
 	;
 comp_op // Used in: comparison
 	: LESS { $$ = LESS; }
-	| GREATER
-	| EQEQUAL
-	| GREATEREQUAL
-	| LESSEQUAL
+	| GREATER { $$ = GREATER; }
+	| EQEQUAL { $$ = EQEQUAL; }
+	| GREATEREQUAL { $$ = GREATEREQUAL; }
+	| LESSEQUAL { $$ = LESSEQUAL; }
 	| GRLT
-	| NOTEQUAL
+	| NOTEQUAL { $$ = NOTEQUAL; }
 	| IN
 	| NOT IN
 	| IS

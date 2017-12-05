@@ -36,6 +36,26 @@ const Literal* UndefLiteral::operator<(const Literal&) const{ return this; }
 const Literal* UndefLiteral::opLess(float) const{ return this; }
 const Literal* UndefLiteral::opLess(int) const{ return this; }
 
+const Literal* UndefLiteral::operator<=(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opLessEqual(float) const{ return this; }
+const Literal* UndefLiteral::opLessEqual(int) const{ return this; }
+
+const Literal* UndefLiteral::operator>(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opGreater(float) const{ return this; }
+const Literal* UndefLiteral::opGreater(int) const{ return this; }
+
+const Literal* UndefLiteral::operator>=(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opGreaterEqual(float) const{ return this; }
+const Literal* UndefLiteral::opGreaterEqual(int) const{ return this; }
+
+const Literal* UndefLiteral::operator==(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opEqualEqual(float) const{ return this; }
+const Literal* UndefLiteral::opEqualEqual(int) const{ return this; }
+
+const Literal* UndefLiteral::operator!=(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opNotEqual(float) const{ return this; }
+const Literal* UndefLiteral::opNotEqual(int) const{ return this; }
+
 const Literal*  UndefLiteral::eval() const{ return this; }
 void UndefLiteral::print() const{ cout << "Undef" << endl; }
 void UndefLiteral::display() const{ cout << "Undef" << endl; }

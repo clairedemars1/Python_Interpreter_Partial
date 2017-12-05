@@ -36,6 +36,26 @@ const Literal* NoneLiteral::operator<(const Literal&) const{ return this; }
 const Literal* NoneLiteral::opLess(float) const{ return this; }
 const Literal* NoneLiteral::opLess(int) const{ return this; }
 
+const Literal* NoneLiteral::operator<=(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opLessEqual(float) const{ return this; }
+const Literal* NoneLiteral::opLessEqual(int) const{ return this; }
+
+const Literal* NoneLiteral::operator>(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opGreater(float) const{ return this; }
+const Literal* NoneLiteral::opGreater(int) const{ return this; }
+
+const Literal* NoneLiteral::operator>=(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opGreaterEqual(float) const{ return this; }
+const Literal* NoneLiteral::opGreaterEqual(int) const{ return this; }
+
+const Literal* NoneLiteral::operator==(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opEqualEqual(float) const{ return this; }
+const Literal* NoneLiteral::opEqualEqual(int) const{ return this; }
+
+const Literal* NoneLiteral::operator!=(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opNotEqual(float) const{ return this; }
+const Literal* NoneLiteral::opNotEqual(int) const{ return this; }
+
 const Literal*  NoneLiteral::eval() const{ return this; }
 void NoneLiteral::print() const{ cout << "None" << endl; }
 void NoneLiteral::display() const{ cout << "None" << endl; }

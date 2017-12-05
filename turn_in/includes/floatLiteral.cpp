@@ -136,6 +136,76 @@ const Literal* FloatLiteral::opLess(int lhs_val) const{
 	return ret; 
 }
 
+const Literal* FloatLiteral::operator<=(const Literal& rhs) const{
+	return rhs.opLessEqual(val);
+}
+const Literal* FloatLiteral::opLessEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val <= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opLessEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val <= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* FloatLiteral::operator>(const Literal& rhs) const{
+	return rhs.opGreater(val);
+}
+const Literal* FloatLiteral::opGreater(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val > val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opGreater(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val > val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* FloatLiteral::operator>=(const Literal& rhs) const{
+	return rhs.opGreaterEqual(val);
+}
+const Literal* FloatLiteral::opGreaterEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val >= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opGreaterEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val >= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* FloatLiteral::operator==(const Literal& rhs) const{
+	return rhs.opEqualEqual(val);
+}
+const Literal* FloatLiteral::opEqualEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val == val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opEqualEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val == val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* FloatLiteral::operator!=(const Literal& rhs) const{
+	return rhs.opNotEqual(val);
+}
+const Literal* FloatLiteral::opNotEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val != val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opNotEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val != val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
 const Literal*FloatLiteral::eval() const { return this; }
 
 void FloatLiteral::print() const { 

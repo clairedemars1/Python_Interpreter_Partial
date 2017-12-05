@@ -5,7 +5,7 @@
     return rhs.opPlus(val);
   }
  const Literal*IntLiteral::opPlus(float lhs) const  {
-   const Literal*node = new FloatLiteral(static_cast<float>(val) + lhs);
+   const Literal*node = new IntLiteral(static_cast<float>(val) + lhs);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -19,7 +19,7 @@
     return rhs.opSubt(val);
   }
  const Literal*IntLiteral::opSubt(float lhs) const  {
-   const Literal*node = new FloatLiteral(lhs - val);
+   const Literal*node = new IntLiteral(lhs - val);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -33,7 +33,7 @@
     return rhs.opMult(val);
   }
  const Literal*IntLiteral::opMult(float lhs) const  {
-   const Literal*node = new FloatLiteral(lhs * val);
+   const Literal*node = new IntLiteral(lhs * val);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -49,7 +49,7 @@
  const Literal*IntLiteral::opDiv(float lhs) const  {
     if ( val == 0 ) throw std::string("Zero Division Error");
     float result = lhs/val;
-   const Literal*node = new FloatLiteral(result);
+   const Literal*node = new IntLiteral(result);
     PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -69,7 +69,7 @@
   
  const Literal*IntLiteral::opDoubleSlash(float lhs) const {
 	if ( val == 0 ) throw std::string("Zero Division Error");
-	Literal* node = new FloatLiteral(floor(lhs / (float) val));
+	Literal* node = new IntLiteral(floor(lhs / (float) val));
 	PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -88,7 +88,7 @@
 	if ( val == 0 ) throw std::string("Zero Division Error");
 	float result =  std::fmod(lhs, val);
 	if (result == -0.0) { result = 0.0; }; // python % never returns -0.0 or -0
-	Literal* node = new FloatLiteral( result );
+	Literal* node = new IntLiteral( result );
 	PoolOfNodes::getInstance().add(node);
     return node;
   }
@@ -105,7 +105,7 @@
   }
   
  const Literal*IntLiteral::opPow(float lhs) const{
-	Literal* node = new FloatLiteral( pow(lhs, val) );
+	Literal* node = new IntLiteral( pow(lhs, val) );
     PoolOfNodes::getInstance().add(node);
 	return node;
   }
@@ -114,7 +114,7 @@
 	// both are ints, so return an int unless the exponent is negative
 	Literal* node = NULL;
 	if (val < 0){
-	  node = new FloatLiteral( pow(lhs, val) );
+	  node = new IntLiteral( pow(lhs, val) );
 	} else {
 	  node = new IntLiteral( (int) pow(lhs, val) );
 	}
@@ -137,6 +137,75 @@ const Literal* IntLiteral::opLess(int lhs_val) const{
 	return ret; 
 }
 
+const Literal* IntLiteral::operator<=(const Literal& rhs) const{
+	return rhs.opLessEqual(val);
+}
+const Literal* IntLiteral::opLessEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val <= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* IntLiteral::opLessEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val <= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* IntLiteral::operator>(const Literal& rhs) const{
+	return rhs.opGreater(val);
+}
+const Literal* IntLiteral::opGreater(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val > val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* IntLiteral::opGreater(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val > val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* IntLiteral::operator>=(const Literal& rhs) const{
+	return rhs.opGreaterEqual(val);
+}
+const Literal* IntLiteral::opGreaterEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val >= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* IntLiteral::opGreaterEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val >= val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* IntLiteral::operator==(const Literal& rhs) const{
+	return rhs.opEqualEqual(val);
+}
+const Literal* IntLiteral::opEqualEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val == val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* IntLiteral::opEqualEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val == val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal* IntLiteral::operator!=(const Literal& rhs) const{
+	return rhs.opNotEqual(val);
+}
+const Literal* IntLiteral::opNotEqual(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val != val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* IntLiteral::opNotEqual(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val != val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
 const Literal*IntLiteral::eval() const { return this; }
 
 void IntLiteral::print() const { 
