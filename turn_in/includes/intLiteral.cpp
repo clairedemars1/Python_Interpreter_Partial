@@ -122,6 +122,16 @@
 	return node;
 	  
   }
+  
+const Literal* IntLiteral::operator<(const Literal& rhs) const{
+	return rhs.opLess(val);
+}
+const Literal* IntLiteral::opLess(float lhs_val) const{
+	return lhs_val < val; 
+}
+const Literal* IntLiteral::opLess(int lhs_val) const{
+	return lhs_val < val; 
+}
 
   const Literal*IntLiteral::eval() const { return this; }
   void IntLiteral::print() const { 

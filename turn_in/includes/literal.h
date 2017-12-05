@@ -38,8 +38,12 @@ public:
   virtual const Literal* opPow(float) const=0;
   virtual const Literal* opPow(int) const=0;
 
+  virtual const Literal* operator<(const Literal& rhs) const=0;
+  virtual const Literal* opLess(float) const=0;
+  virtual const Literal* opLess(int) const=0;
+
   virtual const Literal* eval() const =0;
-  virtual void print() const =0; // this used to define default behavior, but that wouldn't compile (maybe b/c all these headers are in the same file)
+  virtual void print() const =0;
 };
 
 // an undefined Node
@@ -76,6 +80,10 @@ public:
   virtual const Literal* operatorPower(const Literal& rhs) const;
   virtual const Literal* opPow(float) const;
   virtual const Literal* opPow(int) const;
+  
+  virtual const Literal* operator<(const Literal& rhs) const;
+  virtual const Literal* opLess(float) const;
+  virtual const Literal* opLess(int) const;
 
   virtual const Literal* eval() const;
   virtual void print() const;
@@ -116,11 +124,16 @@ public:
   
   virtual const Literal* operatorPower(const Literal& rhs) const;
   virtual const Literal* opPow(float) const;
-  virtual const Literal* opPow(int) const;
+    virtual const Literal* opPow(int) const;
+  
+  virtual const Literal* operator<(const Literal& rhs) const;
+  virtual const Literal* opLess(float) const;
+  virtual const Literal* opLess(int) const;
 
   virtual const Literal* eval() const;
   virtual void print() const;
   virtual void display() const;
+
 private:
     NoneLiteral() {}
 };
@@ -154,7 +167,11 @@ public:
   
   virtual const Literal* operatorPower(const Literal& rhs) const;
   virtual const Literal* opPow(float) const;
-  virtual const Literal* opPow(int) const;
+    virtual const Literal* opPow(int) const;
+  
+  virtual const Literal* operator<(const Literal& rhs) const;
+  virtual const Literal* opLess(float) const;
+  virtual const Literal* opLess(int) const;
 
   virtual const Literal* eval() const;
   virtual void print() const;
@@ -192,13 +209,20 @@ public:
   
   virtual const Literal* operatorPower(const Literal& rhs) const;
   virtual const Literal* opPow(float) const;
-  virtual const Literal* opPow(int) const;
+    virtual const Literal* opPow(int) const;
+  
+  virtual const Literal* operator<(const Literal& rhs) const;
+  virtual const Literal* opLess(float) const;
+  virtual const Literal* opLess(int) const;
   
   virtual const Literal* eval() const;
   virtual void print() const;
   virtual void display() const;
 
+
 private:
   int val;
 };
 
+
+class Bool Literal

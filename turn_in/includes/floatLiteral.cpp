@@ -1,9 +1,8 @@
-  #include "literal.h"
-  #include <cmath>
-  
-  using std::cout;
-  using std::endl;
-  
+#include "literal.h"
+#include <cmath>
+using std::cout;
+using std::endl;
+
  const Literal*FloatLiteral::operator+(const Literal& rhs) const  {
     return rhs.opPlus(val);
   }

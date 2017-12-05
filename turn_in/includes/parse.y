@@ -18,31 +18,6 @@
 	void yyerror (const char *);
 	PoolOfNodes& pool = PoolOfNodes::getInstance();
 		
-	/* Implementation Notes:
-	Print statements, assignments (of vars or functions), and function calls are their own "little trees".
-	When they are in the global scope, they are evaluated immediately after being written
-	There are 4 corresponding nodes: 
-		print nodes
-		assignment nodes (for vars)
-		function nodes (for function definition)
-		function calls
-		
-	Function definitions in the global scope are stored in the global symbol table (in the table manager), any nested ones are stored as subtrees within them
-	
-	3 things can happen to a function: defined, put in symbol table, called. Unclear what "eval()" means.
-	
-		When we see a function def, we want the function defined, and (iff in the current scope) put in the current symbol table. 
-	
-		When called, we want all the functions inside it (but not it) put into the current symbol table.
-		
-		______________
-		new version of notes
-		---------------
-		different meanings of eval:
-			print
-		
-	*/
-	
 %}
 
 %token AMPEREQUAL AMPERSAND AND AS ASSERT AT BACKQUOTE BAR BREAK CIRCUMFLEX
@@ -242,7 +217,7 @@ star_EQUAL // Used in: expr_stmt, star_EQUAL
 	: star_EQUAL EQUAL pick_yield_expr_testlist
 	{ 	if ($1 == NULL){
 			$$ = $3;
-		} else { // $1 is itself a literal node, so make an assignment node and pass it up
+		} else {
 			$$ = new AsgBinaryNode($1, $3);
 			pool.add($$);
 		}
@@ -675,7 +650,7 @@ power // Used in: factor
 		}
 	}
 	;
-star_trailer // Used in: power, star_trailer // eg (3, 2) in foo(3, 2)
+star_trailer // Used in: power, star_trailer // it looks like a parameter list, eg (3, 2) in foo(3, 2)
 	: star_trailer trailer
 	{ $$ = 1; }
 	| %empty

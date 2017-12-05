@@ -13,19 +13,6 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
-
-//~ class NegNode: public Node {
-//~ public:
-	//~ NegNode(): Node(const Node* n), makeMeNeg(n) {}
-	//~ ~NegNode(){}
-	//~ NegNode(const NegNode&)=delete;
-	//~ NegNode& operator=(const NegNode&)=delete;
-	//~ virtual const Literal* eval() const;
-	//~ virtual void display() const;
-//~ private:
-	//~ const Node* makeMeNeg;
-//~ };
-
 class ReturnNode: public Node {
 public:
 	ReturnNode(const Node* _returnMe): Node(), returnMe(_returnMe){ }
@@ -189,11 +176,11 @@ public:
   virtual const Literal* eval() const;
 };
 
-//~ class LessNode: public BinaryNode {
-//~ public:
-	//~ LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
-	//~ virtual const Literal* eval() const; 
-//~ };
+class LessNode: public BinaryNode {
+public:
+	LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	virtual const Literal* eval() const; 
+};
 
 /*
 	: LESS

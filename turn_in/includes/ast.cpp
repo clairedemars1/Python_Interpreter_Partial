@@ -11,15 +11,6 @@ using std::endl;
 using std::cout;
 using std::string;
 
-//~ const Literal* NegNode::eval() const {
-	//~ if (!makeMeNeg){ throw std::string("error with neg node"); }
-	//~ const const Literal* result = makeMeNeg->eval();
-//~ }
-//~ 
-//~ void NegNode::display() const { 
-	//~ cout << "NegNode" << endl;
-	//~ if (makeMeNeg) makeMeNeg->display();
-//~ }
 
 const Literal* ReturnNode::eval() const {	
 	if (!returnMe){ throw std::string("error with return node"); }
@@ -59,7 +50,7 @@ void SuiteNode::addStatement(const Node* node){
 
 const Literal* SuiteNode::eval() const {
 	for(auto s: statements){
-		// todo 
+		// todo: make work for if statements too
 		const ReturnNode* doReturn = dynamic_cast<const ReturnNode*>(s);
 		if (doReturn) { return s->eval(); }
 		if (s) s->eval();
@@ -193,13 +184,13 @@ const Literal* PowBinaryNode::eval() const {
   return result;
 }
 
-//~ const Literal* LessNode::eval() const { 
-  //~ if (!left || !right) {
-    //~ throw "less error";
-  //~ }
-  //~ const Literal* x = left->eval();
-  //~ const Literal* y = right->eval();
-  //~ const Literal* result = x-> < *y;
-  //~ return result;
-//~ }
+const Literal* LessNode::eval() const { 
+  if (!left || !right) {
+    throw "less error";
+  }
+  const Literal* x = left->eval();
+  const Literal* y = right->eval();
+  const Literal* result = *x < *y;
+  return result;
+}
 
