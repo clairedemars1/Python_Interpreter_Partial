@@ -32,6 +32,10 @@ const Literal*  NoneLiteral::operatorPower(const Literal&) const{ return this; }
 const Literal*  NoneLiteral::opPow(float) const{ return this; }
 const Literal*  NoneLiteral::opPow(int) const{ return this; }
 
+const Literal* NoneLiteral::operator<(const Literal&) const{ return this; }
+const Literal* NoneLiteral::opLess(float) const{ return this; }
+const Literal* NoneLiteral::opLess(int) const{ return this; }
+
 const Literal*  NoneLiteral::eval() const{ return this; }
 void NoneLiteral::print() const{ cout << "None" << endl; }
 void NoneLiteral::display() const{ cout << "None" << endl; }

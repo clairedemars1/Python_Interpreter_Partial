@@ -106,28 +106,42 @@ const Literal*FloatLiteral::opPlus(int lhs) const  {
     return node;
   }
   
- const Literal*FloatLiteral::operatorPower(const Literal& rhs) const{
+const Literal*FloatLiteral::operatorPower(const Literal& rhs) const{
 	return rhs.opPow(val);
-  }
-  
- const Literal*FloatLiteral::opPow(float lhs) const{
+}
+
+const Literal*FloatLiteral::opPow(float lhs) const{
 	Literal* node = new FloatLiteral( pow(lhs, val) );
-    PoolOfNodes::getInstance().add(node);
-	return node;
-  }
-  
- const Literal*FloatLiteral::opPow(int lhs) const{
+	PoolOfNodes::getInstance().add(node);
+return node;
+}
+
+const Literal*FloatLiteral::opPow(int lhs) const{
 	Literal* node = new FloatLiteral( pow(lhs, val) );
-    PoolOfNodes::getInstance().add(node);
+	PoolOfNodes::getInstance().add(node);
 	return node;
-  }
-  
-  const Literal*FloatLiteral::eval() const { return this; }
-  
-  void FloatLiteral::print() const { 
-    int int_val = val;
-    
-    // print a float version of 5 as 5.0
+}
+
+const Literal* FloatLiteral::operator<(const Literal& rhs) const{
+	return rhs.opLess(val);
+}
+const Literal* FloatLiteral::opLess(float lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val < val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+const Literal* FloatLiteral::opLess(int lhs_val) const{
+	Literal* ret = new BoolLiteral( lhs_val < val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
+}
+
+const Literal*FloatLiteral::eval() const { return this; }
+
+void FloatLiteral::print() const { 
+	int int_val = val;
+
+	// print a float version of 5 as 5.0
 	if ( (fabs(val-int_val) < 0.0000000001) &&
 		fabs(val) >= abs(int_val) ){
 		printf("%.1f", val);
@@ -135,6 +149,6 @@ const Literal*FloatLiteral::opPlus(int lhs) const  {
 	} else { // print regularly
 		cout << val << endl;
 	}
-  }
+}
 
 void FloatLiteral::display() const { cout << "FloatLiteral" << val << endl; }

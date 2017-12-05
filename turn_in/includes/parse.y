@@ -51,10 +51,12 @@
 %type< node_p> pick_yield_expr_testlist star_EQUAL expr_stmt testlist 
 %type<node_p> star_COMMA_test yield_expr or_test lambdef plus_STRING
 %type<node_p> funcdef print_stmt return_stmt
+%type<node_p> comparison expr
 
 %type<suite_node_p> plus_stmt stmt suite
 
-%type<int_val>INT pick_PLUS_MINUS pick_multop pick_unop augassign and_test star_trailer
+%type<int_val>INT pick_PLUS_MINUS pick_multop pick_unop augassign and_test star_trailer 
+%type<int_val> comp_op
 %type<float_val> FLOAT
 
 %%
@@ -525,9 +527,16 @@ not_test // Used in: and_test, not_test
 comparison // Used in: not_test, comparison
 	: expr
 	| comparison comp_op expr
+	{ 
+		//cout << $2 << endl;
+		
+		if ($2 == LESS) {
+			$$ = new LessBinaryNode($1, $3);
+		}
+	}
 	;
 comp_op // Used in: comparison
-	: LESS
+	: LESS { $$ = LESS; }
 	| GREATER
 	| EQEQUAL
 	| GREATEREQUAL

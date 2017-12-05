@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <typeinfo>
 #include "literal.h"
 #include "tableManager.h"
 
@@ -176,9 +177,9 @@ public:
   virtual const Literal* eval() const;
 };
 
-class LessNode: public BinaryNode {
+class LessBinaryNode: public BinaryNode {
 public:
-	LessNode(Node* left, Node* right) : BinaryNode(left, right) { }
+	LessBinaryNode(Node* left, Node* right) : BinaryNode(left, right) { }
 	virtual const Literal* eval() const; 
 };
 

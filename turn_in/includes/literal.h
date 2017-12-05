@@ -209,7 +209,7 @@ public:
   
   virtual const Literal* operatorPower(const Literal& rhs) const;
   virtual const Literal* opPow(float) const;
-    virtual const Literal* opPow(int) const;
+  virtual const Literal* opPow(int) const;
   
   virtual const Literal* operator<(const Literal& rhs) const;
   virtual const Literal* opLess(float) const;
@@ -225,4 +225,19 @@ private:
 };
 
 
-class Bool Literal
+class BoolLiteral : public IntLiteral {
+public:
+	BoolLiteral(int v): IntLiteral(v), bool_val(v){}
+	virtual void print() const {
+		if ( bool_val ){
+			cout << "True" << endl;
+		} else {
+			cout << "False" << endl;
+		}
+	}
+	virtual const Literal* eval() const {
+		return this;
+	}
+private:
+	bool bool_val;
+};

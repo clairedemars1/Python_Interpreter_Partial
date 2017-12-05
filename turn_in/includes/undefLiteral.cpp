@@ -32,6 +32,10 @@ const Literal*  UndefLiteral::operatorPower(const Literal&) const{ return this; 
 const Literal*  UndefLiteral::opPow(float) const{ return this; }
 const Literal*  UndefLiteral::opPow(int) const{ return this; }
 
+const Literal* UndefLiteral::operator<(const Literal&) const{ return this; }
+const Literal* UndefLiteral::opLess(float) const{ return this; }
+const Literal* UndefLiteral::opLess(int) const{ return this; }
+
 const Literal*  UndefLiteral::eval() const{ return this; }
 void UndefLiteral::print() const{ cout << "Undef" << endl; }
 void UndefLiteral::display() const{ cout << "Undef" << endl; }

@@ -127,15 +127,20 @@ const Literal* IntLiteral::operator<(const Literal& rhs) const{
 	return rhs.opLess(val);
 }
 const Literal* IntLiteral::opLess(float lhs_val) const{
-	return lhs_val < val; 
+	Literal* ret = new BoolLiteral( lhs_val < val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
 }
 const Literal* IntLiteral::opLess(int lhs_val) const{
-	return lhs_val < val; 
+	Literal* ret = new BoolLiteral( lhs_val < val );
+	PoolOfNodes::getInstance().add(ret);
+	return ret; 
 }
 
-  const Literal*IntLiteral::eval() const { return this; }
-  void IntLiteral::print() const { 
-    std::cout << val << std::endl; 
-  }
+const Literal*IntLiteral::eval() const { return this; }
+
+void IntLiteral::print() const { 
+	std::cout << val << std::endl; 
+}
   
 void IntLiteral::display() const { cout << "IntLiteral" << val << endl; }

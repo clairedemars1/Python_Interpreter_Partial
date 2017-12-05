@@ -184,7 +184,7 @@ const Literal* PowBinaryNode::eval() const {
   return result;
 }
 
-const Literal* LessNode::eval() const { 
+const Literal* LessBinaryNode::eval() const { 
   if (!left || !right) {
     throw "less error";
   }
