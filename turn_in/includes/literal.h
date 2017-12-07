@@ -8,7 +8,8 @@ using std::cout;
 
 class Literal : public Node {
 public:
-	virtual ~Literal() {}
+	Literal(): Node(), isReturnVal_variable(false) {}
+	virtual ~Literal(){}
 
 	virtual const Literal* operator+(const Literal& rhs) const =0;
 	virtual const Literal* opPlus(float) const =0;
@@ -63,7 +64,12 @@ public:
 	virtual const Literal* opNotEqual(int) const=0;
 
 	virtual const Literal* eval() const=0;
+	bool isReturnVal() const { return isReturnVal_variable; }
+	void setAsReturnVal() { isReturnVal_variable = true; }
 	virtual void print() const =0;
+
+private:
+	bool isReturnVal_variable;
 };
 
 // an undefined Node
