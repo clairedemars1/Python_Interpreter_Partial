@@ -1,12 +1,12 @@
 
 
 todo:
-- relational operator (binary nodes, should they do a "getval" to make it simpler or delegate it to the int and float node, which will require helper functions and so be messy, but maybe in a nec. way)
 - implement if, else (make sure the suite thing doesn't "return" an if suite
-- implement relational operators
 - make the print(x) vs x = 3 vs x+=3 thing work 
 
 todo longterm:
+
+
 /*
 Double Dispatch
 	If c++ allowed double dispatch, then we could have written 4 functions 

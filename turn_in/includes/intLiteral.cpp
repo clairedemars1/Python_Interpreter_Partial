@@ -114,7 +114,7 @@
 	// both are ints, so return an int unless the exponent is negative
 	Literal* node = NULL;
 	if (val < 0){
-	  node = new IntLiteral( pow(lhs, val) );
+	  node = new FloatLiteral( pow(lhs, val) );
 	} else {
 	  node = new IntLiteral( (int) pow(lhs, val) );
 	}
