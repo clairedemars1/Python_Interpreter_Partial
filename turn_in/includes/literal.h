@@ -9,6 +9,7 @@ using std::cout;
 class Literal : public Node {
 public:
 	Literal(): Node(), isReturnVal_variable(false) {}
+	Literal(bool _isReturnVal): Node(), isReturnVal_variable(_isReturnVal) {}
 	virtual ~Literal(){}
 
 	virtual const Literal* operator+(const Literal& rhs) const =0;
@@ -65,7 +66,7 @@ public:
 
 	virtual const Literal* eval() const=0;
 	bool isReturnVal() const { return isReturnVal_variable; }
-	void setAsReturnVal() { isReturnVal_variable = true; }
+	virtual const Literal* makeReturnValCopy() const =0;
 	virtual void print() const =0;
 
 private:
@@ -79,6 +80,7 @@ public:
 	  static const UndefLiteral instance;
 	  return instance; 
 	}
+	
 	virtual const Literal* operator+(const Literal& rhs) const;
 	virtual const Literal* opPlus(float) const;
 	virtual const Literal* opPlus(int) const;
@@ -132,11 +134,14 @@ public:
 	virtual const Literal* opNotEqual(int) const;
 
 	virtual const Literal* eval() const;
+	const Literal* makeReturnValCopy() const;
+
 	virtual void print() const;
 	virtual void display() const;
 	
 private:
-    UndefLiteral() {}
+    UndefLiteral(): Literal(true) {}
+	//~ UndefLiteral(bool _isReturnVal): Literal(_isReturnVal) {}
 };
 
 class NoneLiteral: public Literal {
@@ -198,16 +203,19 @@ public:
 	virtual const Literal* opNotEqual(int) const;
 
 	virtual const Literal* eval() const;
+	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
 
 private:
-    NoneLiteral() {}
+    NoneLiteral(): Literal(true) {}
 };
 
 class FloatLiteral: public Literal {
 public:
 	FloatLiteral(float _val): val(_val) {}
+	FloatLiteral(float _val, bool _isReturnVal): Literal(_isReturnVal), val(_val) {}
+
 	virtual const Literal* operator+(const Literal& rhs) const;
 	virtual const Literal* opPlus(float) const;
 	virtual const Literal* opPlus(int) const;
@@ -261,6 +269,7 @@ public:
 	virtual const Literal* opNotEqual(int) const;
 
 	virtual const Literal* eval() const;
+	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
 	
@@ -271,6 +280,8 @@ private:
 class IntLiteral: public Literal {
 public:
 	IntLiteral(int _val): val(_val) {}
+	IntLiteral(float _val, bool _isReturnVal): Literal(_isReturnVal), val(_val) {}
+	
 	virtual const Literal* operator+(const Literal& rhs) const;
 	virtual const Literal* opPlus(float) const;
 	virtual const Literal* opPlus(int) const;
@@ -324,6 +335,7 @@ public:
 	virtual const Literal* opNotEqual(int) const;
 
 	virtual const Literal* eval() const;
+	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
 

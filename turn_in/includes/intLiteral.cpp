@@ -208,6 +208,10 @@ const Literal* IntLiteral::opNotEqual(int lhs_val) const{
 }
 const Literal*IntLiteral::eval() const { return this; }
 
+const Literal* IntLiteral::makeReturnValCopy() const {
+	return new const IntLiteral(val, true);
+}
+
 void IntLiteral::print() const { 
 	std::cout << val << std::endl; 
 }

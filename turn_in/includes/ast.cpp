@@ -14,9 +14,8 @@ using std::string;
 
 const Literal* ReturnNode::eval() const {	
 	if (!returnMe){ throw std::string("error with return node"); }
-	const Literal* temp = returnMe->eval();
-	//~ temp->setAsReturnVal();
-	return temp;
+	const Literal* copy = returnMe->eval()->makeReturnValCopy();
+	return copy;
 }
 void ReturnNode::display() const { 
 	cout << "ReturnNode" << endl;
@@ -54,15 +53,12 @@ const Literal* SuiteNode::eval() const {
 	for(auto s: statements){
 		// todo: make work for if statements too
 		
-		//~ const ReturnNode* doReturn = dynamic_cast<const ReturnNode*>(s);
-		//~ if (doReturn) { return s->eval(); }
-		//~ if (s) s->eval();
-		
 		const Literal* val = s->eval();
-		if (val->isReturnVal() ){
+		if (val && val->isReturnVal() ){
 			return  val;	
 		}
 	}
+	
 	return nullptr;
 }
 

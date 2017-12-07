@@ -56,6 +56,8 @@ const Literal* UndefLiteral::operator!=(const Literal&) const{ return this; }
 const Literal* UndefLiteral::opNotEqual(float) const{ return this; }
 const Literal* UndefLiteral::opNotEqual(int) const{ return this; }
 
-const Literal*  UndefLiteral::eval() const{ return this; }
+const Literal* UndefLiteral::eval() const{ return this; }
+const Literal* UndefLiteral::makeReturnValCopy() const { return this;}
+
 void UndefLiteral::print() const{ cout << "Undef" << endl; }
 void UndefLiteral::display() const{ cout << "Undef" << endl; }

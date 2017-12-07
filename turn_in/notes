@@ -6,6 +6,8 @@ todo:
 
 todo longterm:
 
+Notes:
+	- I made NoneNode and UndefNode always return values, which they are not, b/c they can be returned from the symboltable to show that the val was not found (but we never check whether they are there)
 
 /*
 Double Dispatch

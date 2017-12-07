@@ -206,7 +206,11 @@ const Literal* FloatLiteral::opNotEqual(int lhs_val) const{
 	return ret; 
 }
 
-const Literal*FloatLiteral::eval() const { return this; }
+const Literal* FloatLiteral::eval() const { return this; }
+
+const Literal* FloatLiteral::makeReturnValCopy() const {
+	return new const FloatLiteral(val, true);
+}
 
 void FloatLiteral::print() const { 
 	int int_val = val;

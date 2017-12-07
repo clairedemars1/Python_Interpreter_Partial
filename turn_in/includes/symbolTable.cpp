@@ -12,6 +12,7 @@ const Literal* SymbolTable::getVar(const std::string& name) const {
     vars.find(name);
   if ( it == vars.end() ){
 	   return &UndefLiteral::getInstance();
+	   // better to just return nullptr?
   }
   return it->second;
 }

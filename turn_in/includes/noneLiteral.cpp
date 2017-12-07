@@ -56,6 +56,8 @@ const Literal* NoneLiteral::operator!=(const Literal&) const{ return this; }
 const Literal* NoneLiteral::opNotEqual(float) const{ return this; }
 const Literal* NoneLiteral::opNotEqual(int) const{ return this; }
 
-const Literal*  NoneLiteral::eval() const{ return this; }
+const Literal* NoneLiteral::eval() const{ return this; }
+const Literal* NoneLiteral::makeReturnValCopy() const { return this;}
+
 void NoneLiteral::print() const{ cout << "None" << endl; }
 void NoneLiteral::display() const{ cout << "None" << endl; }
