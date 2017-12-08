@@ -11,6 +11,18 @@ using std::endl;
 using std::cout;
 using std::string;
 
+const Literal* IfNode::eval() const{
+	const Literal* ret = nullptr;
+	
+	bool test_is_true = test->eval()->isTruthy();
+	
+	if (test_is_true){
+		ret = ifSuite->eval();
+	} else {
+		ret = elseSuite->eval();
+	}
+	return ret;
+}
 
 const Literal* ReturnNode::eval() const {	
 	if (!returnMe){ throw std::string("error with return node"); }
@@ -50,15 +62,12 @@ void SuiteNode::addStatement(const Node* node){
 }
 
 const Literal* SuiteNode::eval() const {
-	for(auto s: statements){
-		// todo: make work for if statements too
-		
+	for(auto s: statements){		
 		const Literal* val = s->eval();
 		if (val && val->isReturnVal() ){
 			return  val;	
 		}
 	}
-	
 	return nullptr;
 }
 

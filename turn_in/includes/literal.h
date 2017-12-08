@@ -68,6 +68,7 @@ public:
 	bool isReturnVal() const { return isReturnVal_variable; }
 	virtual const Literal* makeReturnValCopy() const =0;
 	virtual void print() const =0;
+	virtual bool isTruthy() const=0;
 
 private:
 	bool isReturnVal_variable;
@@ -135,13 +136,12 @@ public:
 
 	virtual const Literal* eval() const;
 	const Literal* makeReturnValCopy() const;
-
+	bool isTruthy() const {return false; };
 	virtual void print() const;
 	virtual void display() const;
 	
 private:
-    UndefLiteral(): Literal(true) {}
-	//~ UndefLiteral(bool _isReturnVal): Literal(_isReturnVal) {}
+    UndefLiteral(): Literal(true) {} 
 };
 
 class NoneLiteral: public Literal {
@@ -206,9 +206,11 @@ public:
 	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
+	virtual bool isTruthy() const {return false; };
 
 private:
-    NoneLiteral(): Literal(true) {}
+    NoneLiteral(): Literal(true) {} 
+    // for the purposes of this project, this can be always a "return node"
 };
 
 class FloatLiteral: public Literal {
@@ -272,7 +274,8 @@ public:
 	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
-	
+	virtual bool isTruthy() const {return val; };
+
 private:
   float val;
 };
@@ -281,6 +284,7 @@ class IntLiteral: public Literal {
 public:
 	IntLiteral(int _val): val(_val) {}
 	IntLiteral(float _val, bool _isReturnVal): Literal(_isReturnVal), val(_val) {}
+	~IntLiteral() {}
 	
 	virtual const Literal* operator+(const Literal& rhs) const;
 	virtual const Literal* opPlus(float) const;
@@ -338,23 +342,22 @@ public:
 	const Literal* makeReturnValCopy() const;
 	virtual void print() const;
 	virtual void display() const;
+	virtual bool isTruthy() const {return val; };
 
-private:
+protected:
 	int val;
 };
 
 
 class BoolLiteral : public IntLiteral {
 public:
-	BoolLiteral(int v): IntLiteral(v), bool_val(v){}
+	BoolLiteral(int v): IntLiteral(v) {}
 	virtual void print() const {
-		if ( bool_val ){
+		if ( val ){
 			cout << "True" << endl;
 		} else {
 			cout << "False" << endl;
 		}
 	}
 	virtual const Literal* eval() const { return this; }
-private:
-	bool bool_val;
 };

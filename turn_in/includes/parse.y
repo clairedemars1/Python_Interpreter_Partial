@@ -51,7 +51,7 @@
 %type< node_p> pick_yield_expr_testlist star_EQUAL expr_stmt testlist 
 %type<node_p> star_COMMA_test yield_expr or_test lambdef plus_STRING
 %type<node_p> funcdef print_stmt return_stmt
-%type<node_p> comparison expr
+%type<node_p> comparison expr if_stmt
 
 %type<suite_node_p> plus_stmt stmt suite
 
@@ -405,8 +405,12 @@ compound_stmt // Used in: stmt
 	| decorated
 	;
 if_stmt // Used in: compound_stmt
-	: IF test COLON suite star_ELIF ELSE COLON suite
+	: IF test COLON suite star_ELIF ELSE COLON suite {
+		$$ = new IfNode($2, $4, $8);
+		pool.add($$);
+	}
 	| IF test COLON suite star_ELIF
+	{ cout << "don't need to implement" << endl; }
 	;
 star_ELIF // Used in: if_stmt, star_ELIF
 	: star_ELIF ELIF test COLON suite

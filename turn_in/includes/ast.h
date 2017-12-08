@@ -14,6 +14,23 @@
 extern void yyerror(const char*);
 extern void yyerror(const char*, const char);
 
+class IfNode: public Node {
+public:
+	IfNode(const Node* _test, const Node* _ifSuite, const Node* _elseSuite): 
+		test(_test)
+		,ifSuite(_ifSuite)
+		,elseSuite(_elseSuite)
+	 {}
+	IfNode(const IfNode&)=delete;
+	IfNode& operator=(const IfNode&)=delete;
+	virtual const Literal* eval() const;
+	virtual void display() const {cout << "IfNode, incomplete display" << endl;}
+private:
+	const Node* test;
+	const Node* ifSuite;
+	const Node* elseSuite;
+};
+
 class ReturnNode: public Node {
 public:
 	ReturnNode(const Node* _returnMe): Node(), returnMe(_returnMe){ }
@@ -117,6 +134,7 @@ private:
 class BinaryNode : public Node {
 public:
   BinaryNode(Node* l, Node* r) : Node(), left(l), right(r) {}
+  virtual ~BinaryNode() {}
   virtual const Literal* eval() const = 0;
   Node* getLeft()  const { return left; }
   Node* getRight() const { return right; }

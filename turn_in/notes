@@ -2,6 +2,7 @@
 
 todo:
 - implement if, else (make sure the suite thing doesn't "return" an if suite
+- make if x: work
 - make the print(x) vs x = 3 vs x+=3 thing work 
 
 todo longterm:
