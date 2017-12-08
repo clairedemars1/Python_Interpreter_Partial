@@ -66,7 +66,10 @@ public:
 
 	virtual const Literal* eval() const=0;
 	bool isReturnVal() const { return isReturnVal_variable; }
-	virtual const Literal* makeReturnValCopy() const =0;
+	
+	virtual const Literal* makeReturnValCopy() const =0;  
+		// returns a copy of the Literal, but a copy that is a "return" literal
+		
 	virtual void print() const =0;
 	virtual bool isTruthy() const=0;
 
@@ -351,7 +354,7 @@ protected:
 
 class BoolLiteral : public IntLiteral {
 public:
-	BoolLiteral(int v): IntLiteral(v) {}
+	BoolLiteral(int v): IntLiteral(v!=0) { /* v!=0 means v is 1 or 0, as appropriate*/ }
 	virtual void print() const {
 		if ( val ){
 			cout << "True" << endl;

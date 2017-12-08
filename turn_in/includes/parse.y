@@ -304,10 +304,12 @@ return_stmt // Used in: flow_stmt
 	: RETURN testlist
 	{ 
 		$$ = new ReturnNode($2);
+		pool.add($$);
 	}	
 	| RETURN
 	{
 		$$ = new ReturnNode();
+		pool.add($$);
 	}
 	;
 yield_stmt // Used in: flow_stmt

@@ -1,14 +1,12 @@
 
 
 todo:
-- implement if, else (make sure the suite thing doesn't "return" an if suite
-- make if x: work
 - make the print(x) vs x = 3 vs x+=3 thing work 
 
 todo longterm:
 
 Notes:
-	- I made NoneNode and UndefNode always return values, which they are not, b/c they can be returned from the symboltable to show that the val was not found (but we never check whether they are there)
+	- I made NoneNode and UndefNode always "return values",but they can be returned from the symboltable to show that the val was not founds, so they're not really. it's ok for our purposes b/c we don't check them when they are returned
 
 /*
 Double Dispatch
