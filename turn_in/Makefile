@@ -1,7 +1,7 @@
 CCC = g++
 LEX = flex
 YACC = bison
-CFLAGS = -g -std=c++11 -W -Wall -Weffc++ -Wextra -pedantic
+CFLAGS = -g -std=c++11 -W -Wall -Weffc++ -Wextra -pedantic -O0
 LEXFLAGS = -Wno-unused -Wno-sign-compare -Wno-deprecated-register
 
 OBJS = main.o parse.tab.o lex.yy.o ast.o symbolTable.o tableManager.o poolOfNodes.o intLiteral.o floatLiteral.o undefLiteral.o noneLiteral.o
