@@ -17,6 +17,8 @@
 	extern char *yytext;
 	void yyerror (const char *);
 	PoolOfNodes& pool = PoolOfNodes::getInstance();
+	
+	int scopingLevel = 0;
 		
 %}
 
