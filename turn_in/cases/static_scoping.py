@@ -1,20 +1,29 @@
-x = 2
-def f():
-	x = 3
-	def g():
-		print x #prints 3
-	g()
-f()
+x = 21
+#~ def f():
+	#~ x = 31
+	#~ def g():
+		#~ print x #prints 31
+	#~ g()
+#~ f()
+#~ 
+#~ x2 = 51
+#~ def f2():
+	#~ # no x here
+	#~ def g2():
+		#~ print x2 #prints 51
+	#~ g2()
+#~ f2()
 
 
 def h():
-	print x #prints 2
+	print x #prints 21
 
 def p():
-	x = 4
+	x = 41
 	h()
 p()
 	
+#does it work same for functions?
 	#~ 
 #~ x = 2
 #~ 

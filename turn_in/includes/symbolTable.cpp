@@ -43,12 +43,14 @@ void SymbolTable::setFunc(const std::string& name, const FuncNode* func) {
 }
 
 void SymbolTable::display() const {
-	cout << "vars: " << endl;
+	cout << "TABLE ";
+	cout << "\tvars: " << endl;
 	for (auto i: vars){
-		cout << "	" << i.first << endl;
+		cout << "\t\t" << i.first << " ";
+		//~ i.second->eval()->print();
 	}
-	cout << "funcs: " << endl;
+	cout << "\tfuncs: " << endl;
 	for (auto i: funcs){
-		cout << "	" <<  i.first << endl;
+		cout << "\t\t" <<  i.first << endl;
 	}
 }

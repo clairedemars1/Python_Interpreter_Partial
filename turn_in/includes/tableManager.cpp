@@ -8,7 +8,7 @@ TableManager& TableManager::getInstance(){
 	static TableManager instance;
 	return instance;
 }
-void TableManager::setVarAsDefinedIfNotInLocalScope(const std::string& name){
+void TableManager::setVarAsUndefinedIfNotInLocalScope(const std::string& name){
   	int currentScope = tables.size() - 1;
 	bool isInCurrentScope = tables[currentScope].isPresentVar(name);
 
@@ -20,24 +20,26 @@ void TableManager::setVarAsDefinedIfNotInLocalScope(const std::string& name){
 
 const Literal* TableManager::getVar(const std::string& name) const {
 	int currentScope = tables.size() - 1;
-	while(currentScope >= 0){
+	
+	while(currentScope >= 0){	
 		bool isInCurrentScope = tables[currentScope].isPresentVar(name);
 		if (isInCurrentScope){
 			return tables[currentScope].getVar(name);
 		} else {
-			currentScope--;
+			currentScope = tables[currentScope].getEnclosingScopeIndex();
 		}
 	}
 	throw std::string("NameError: name '"+name+"' is not defined");
 }
+
 const Node* TableManager::getFunc(const std::string& name) const {
-  	int currentScope = tables.size() - 1;
-	while(currentScope >= 0){
+	int currentScope = tables.size() - 1;
+	while(currentScope >= 0){	
 		bool isInCurrentScope = tables[currentScope].isPresentFunc(name);
 		if (isInCurrentScope){
 			return tables[currentScope].getFunc(name);
 		} else {
-			currentScope--;
+			currentScope = tables[currentScope].getEnclosingScopeIndex();
 		}
 	}
 	throw std::string("NameError: name '"+name+"' is not defined");
@@ -52,8 +54,9 @@ void TableManager::setFunc(const std::string& name, const FuncNode* func) {
 	tables[currentScope].setFunc(name, func);
 }
 
-void TableManager::pushScope(){
+void TableManager::pushScope(int enclosingScopeIndex){
 	tables.push_back( SymbolTable() );
+	tables[tables.size() - 1].setEnclosingScopeIndex( enclosingScopeIndex );
 }
 
 void TableManager::popScope(){

@@ -88,25 +88,29 @@ private:
 // function definition: code and params
 class FuncNode: public Node {
 public:
-	FuncNode(SuiteNode* _suite): suite(_suite){ }
+	FuncNode(SuiteNode* _suite, int _enclosingScopeIndex): 
+		suite(_suite)
+		,enclosingScopeIndex(_enclosingScopeIndex) { }
 	~FuncNode(){}
 	FuncNode(const FuncNode&)=delete;
 	FuncNode& operator=(const FuncNode&)=delete;
 	virtual const Literal* eval() const;
 	virtual void display() const { cout << "FuncNode" << endl; if (suite) suite->display(); }
+	int getEnclosingScopeIndex() const { return enclosingScopeIndex; }
 private:
 	SuiteNode* suite;
+	int enclosingScopeIndex;
 	// todo params
 };
 
 // assign a definition to a function name
-// different from AsgBinaryNode b/c it has to call setFunc from the tableManager not setVar
+// 		different from AsgBinaryNode b/c it has to call setFunc from the tableManager not setVar
 class FuncAsgNode: public Node {
 public:
 	FuncAsgNode(const IdentNode* _ident, FuncNode* _func):
 		ident(_ident)
 		,func(_func)
-	{}
+		{ }
 	~FuncAsgNode(){}
 	FuncAsgNode(const FuncAsgNode&)=delete;
 	FuncAsgNode& operator=(const FuncAsgNode&)=delete;

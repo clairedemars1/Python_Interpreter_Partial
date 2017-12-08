@@ -18,7 +18,7 @@
 	void yyerror (const char *);
 	PoolOfNodes& pool = PoolOfNodes::getInstance();
 	
-	int scopingLevel = 0;
+	int levelOfEnclosingScope = -1;
 		
 %}
 
@@ -99,17 +99,20 @@ decorated // Used in: compound_stmt
 	| decorators funcdef
 	;
 funcdef // Used in: decorated, compound_stmt
-	: DEF NAME parameters COLON suite
+	: 
+	{ levelOfEnclosingScope++; }
+	DEF NAME parameters COLON suite
 	{ 	
-		IdentNode* name = new IdentNode($2);
+		IdentNode* name = new IdentNode($3); // NAME
 		pool.add(name);
 		
-		FuncNode* func = new FuncNode($5); // later: pass parameters too
+		FuncNode* func = new FuncNode($6, levelOfEnclosingScope); // later: pass parameters too // suite
+		levelOfEnclosingScope--;
 		pool.add(func);
 		FuncAsgNode* asg = new FuncAsgNode(name, func);
 		pool.add(asg);
 		$$ = asg;
-		free($2);
+		free($3); // NAME
 	}
 	;
 parameters // Used in: funcdef

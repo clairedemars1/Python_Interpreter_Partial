@@ -15,9 +15,9 @@ Problems that I had in completing this project: a control-replace bug; weird bug
 
 
 Extra stuff:
-- I made bools' and floats' output match Python's output
+- made bools' and floats' output match Python's output
 
-- I made bool math work 
+- made bool math work 
 	eg (3==3)+2 evaluates to 1+2 or 3, but (3==3) evaluates to True
 	I did it in an elegant way, using Justin's idea of BoolLiteral inheriting from IntLiteral, since doing so lets you use all of Int's math function implementations
 	
@@ -30,6 +30,8 @@ Extra stuff:
 		+ it doesn't necessitate removing a bunch of consts (the way my other strategy did)
 		+ only requires changes in the literal classes
 		+ it doesn't require dynamic casting
+		
+- implemented static scoping
 		
 
 	

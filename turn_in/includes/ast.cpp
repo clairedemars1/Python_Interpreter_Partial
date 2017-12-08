@@ -90,20 +90,21 @@ void IdentNode::display() const {
 }
 
 const Literal* FuncNode::eval() const { 
-		if(!suite) throw std::string("no suite");
-		const Literal* returnVal = suite->eval(); 
-		return returnVal;
+	if(!suite) throw std::string("no suite");
+	const Literal* returnVal = suite->eval(); 
+	return returnVal;
 }
 
 const Literal* CallNode::eval() const {
 	TableManager&  manager = TableManager::getInstance();
-	
-	manager.pushScope();
-	
+		
 	string function_name = ident->getIdent();
 	const FuncNode* function_impl = static_cast<const FuncNode*>( manager.getFunc(function_name) );	
-	const Literal* returnVal = function_impl->eval();
 	
+	// design question: is it better to pull the enclosing scope out of the function, and pass that to manager, or to pass the whole function impl to the manager? 
+	
+	manager.pushScope( function_impl->getEnclosingScopeIndex() );
+	const Literal* returnVal = function_impl->eval();
 	manager.popScope();
 	
 	return returnVal;
@@ -124,9 +125,7 @@ const Literal* AsgBinaryNode::eval() const {
   }
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
   
-  // if don't find it
-  TableManager::getInstance().setVarAsDefinedIfNotInLocalScope(n);
-
+  TableManager::getInstance().setVarAsUndefinedIfNotInLocalScope(n);
   
   const Literal* res = right->eval();
   TableManager::getInstance().setVar(n, res);
