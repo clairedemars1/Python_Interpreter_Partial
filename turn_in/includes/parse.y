@@ -410,7 +410,10 @@ if_stmt // Used in: compound_stmt
 		pool.add($$);
 	}
 	| IF test COLON suite star_ELIF
-	{ cout << "don't need to implement" << endl; }
+	{ 
+		$$ = new IfNode($2, $4, nullptr);
+		pool.add($$);
+	}
 	;
 star_ELIF // Used in: if_stmt, star_ELIF
 	: star_ELIF ELIF test COLON suite

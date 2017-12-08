@@ -10,4 +10,11 @@ def f():
       print 2
     print 101
 
+def g():
+	x = 0
+	if x:
+		print 1
+
+g()
+
 print f()

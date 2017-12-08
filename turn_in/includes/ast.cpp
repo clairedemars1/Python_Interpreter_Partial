@@ -12,13 +12,14 @@ using std::cout;
 using std::string;
 
 const Literal* IfNode::eval() const{
+	
 	const Literal* ret = nullptr;
 	
 	bool test_is_true = test->eval()->isTruthy();
 	
 	if (test_is_true){
 		ret = ifSuite->eval();
-	} else {
+	} else if (elseSuite) { // only run else if there actually is one
 		ret = elseSuite->eval();
 	}
 	return ret;
@@ -63,7 +64,8 @@ void SuiteNode::addStatement(const Node* node){
 
 const Literal* SuiteNode::eval() const {
 	for(auto s: statements){		
-		const Literal* val = s->eval();
+		const Literal* val = nullptr;
+		if (s) val = s->eval();
 		if (val && val->isReturnVal() ){
 			return  val;	
 		}
