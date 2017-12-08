@@ -9,6 +9,8 @@ public:
 
 	void setVar(const std::string& name, const Literal* var);
 	void setFunc(const std::string&name, const FuncNode* func);
+	void setVarAsDefinedIfNotInLocalScope(const std::string& name);
+
 
 	const Literal* getVar(const std::string& name) const;
 	const Node* getFunc(const std::string& name) const;

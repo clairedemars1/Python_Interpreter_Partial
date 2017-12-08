@@ -8,6 +8,15 @@ TableManager& TableManager::getInstance(){
 	static TableManager instance;
 	return instance;
 }
+void TableManager::setVarAsDefinedIfNotInLocalScope(const std::string& name){
+  	int currentScope = tables.size() - 1;
+	bool isInCurrentScope = tables[currentScope].isPresentVar(name);
+
+	if (!isInCurrentScope){
+	  const Literal* undef = &UndefLiteral::getInstance();
+	  TableManager::getInstance().setVar(name, undef);
+	}
+}
 
 const Literal* TableManager::getVar(const std::string& name) const {
 	int currentScope = tables.size() - 1;

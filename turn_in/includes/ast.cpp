@@ -122,9 +122,15 @@ const Literal* AsgBinaryNode::eval() const {
   if (!left || !right) {
     throw "asg binary node error";
   }
-  const Literal* res = right->eval();
   const std::string n = static_cast<IdentNode*>(left)->getIdent();
+  
+  // if don't find it
+  TableManager::getInstance().setVarAsDefinedIfNotInLocalScope(n);
+
+  
+  const Literal* res = right->eval();
   TableManager::getInstance().setVar(n, res);
+  
   return res;
 }
 
