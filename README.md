@@ -1,4 +1,4 @@
-# partial_python_interpreter
+# Python Interpreter (Partial)
 
 Description
 This is a partial interpreter for python 2.7.2, written by Claire DeMars, 
